@@ -1,0 +1,227 @@
+<div class="sales-invoice-custom">
+    
+    <div class="row section-break">
+        <div class="col-xs-3 text-left">
+            <img alt="Logo" height="" src="/files/logo-150x79.png" style="height: px;">
+        </div>
+        <div class="col-xs-5 text-left">
+            <div>
+                <b>{{doc.company}}</b><br>
+                {{doc.company_address_display}}
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="row text-right">
+                <div class="col-xs-5">
+                    <label>VAT No: </label>
+                </div>
+                <div class="col-xs-7">
+                    {{doc.company_tax_id}}
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-xs-5">
+                    <label>Status: </label>
+                </div>
+                <div class="col-xs-7">
+                    {{doc.status}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div>
+                <b>{{doc.customer_name}}</b><br>
+                {% if doc.address_display %}
+                    {{ doc.address_display }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="row text-right">
+                <div class="col-xs-5">
+                    <label>Invoice No: </label>
+                </div>
+                <div class="col-xs-7">
+                    {{doc.name}}
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-xs-5">
+                    <label>Document Date: </label>
+                </div>
+                <div class="col-xs-7">
+                    {{ frappe.format_date(doc.posting_date, "dd/MM/yyyy") }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-center">{{_("Sales Invoice Credit")}}</h3>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="sales-invoice-table">
+                <thead>
+                    <tr class="border-bottom">
+                        <th class="text-center">{{_("Item Code")}}</th>
+                        <th class="text-center">{{_("Description")}}</th>
+                        <th class="text-center">{{_("Qty")}}</th>
+                        <th class="text-center">{{_("Price")}}</th>
+                        <th class="text-center">{{_("Value")}}</th>
+                        <th class="text-center">{{_("Disc %")}}</th>
+                        <th class="text-center">{{_("Net Amount")}}</th>
+                        <th class="text-center">{{_("Total Amount")}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in doc.items %}
+                        <tr>
+                            <td class="text-right">{{ row.item_code }}</td>
+                            <td class="text-right">{{ row.description }}</td>
+                            <td class="text-right">{{ row.qty }}</td>
+                            <td class="text-right">
+                                {{ row.price_list_rate }}
+                            </td>
+                            <td class="text-right">
+                                {{ row.qty *  row.price_list_rate }}
+                            </td>
+                            <td class="text-right">
+                                {{ row.discount_percentage }}
+                            </td>
+                            <td class="text-right">
+                                {{ row.net_amount }}
+                            </td>
+                            <td class="text-right">
+                                {{ row.amount }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% set row_count = doc.items|length %}
+                    {% for i in range(6 - row_count) %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>                
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="sales-invoice-table" style="width: 108%;">
+                <thead>
+                    <tr class="border-bottom">
+                        <th colspan="4" class="text-center">{{ _("V.A.T. ANALYSIS") }}</th>
+                    </tr>
+                    <tr class="border-bottom">
+                        <th class="text-center">{{_("Vat Code")}}</th>
+                        <th class="text-center">{{_("Rate")}}</th>
+                        <th class="text-center">{{_("Goods Value")}}</th>
+                        <th class="text-center">{{_("Vat Amount")}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% for row in doc.taxes %}
+                    <tr>
+                        <td class="text-center">
+                            <b>{{ row.description }}</b>
+                        </td>
+                        <td class="text-center">
+                            <b>{{ row.rate }}</b>
+                        </td>
+                        <td class="text-right">
+                            <b>{{ frappe.format(row.total - row.tax_amount_after_discount_amount, 'Float') }}</b>
+                        </td>
+                        <td class="text-right">
+                            <b>{{ row.tax_amount_after_discount_amount }}</b>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% set row_count = doc.taxes|length %}
+                    {% for i in range(3 - row_count) %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> 
+        <div class="col-xs-6">
+            <table class="sales-invoice-table">
+                <thead>
+                    <tr class="border-bottom">
+                        <th colspan="3" class="text-center">{{ _("INVOICE SUMMARY") }}</th>
+                    </tr>
+                    <tr class="border-bottom">
+                        <th class="text-center">{{_("Gross Amount")}}</th>
+                        <th class="text-center">{{_("Discount Amount")}}</th>
+                        <th class="text-center">{{_("Amount")}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-bottom">
+                        <td class="text-center">
+                            <b>{{ frappe.format(doc.net_total - doc.discount_amount, 'Float') }}</b>
+                        </td>
+                        <td class="text-center">
+                            <b>{{ doc.discount_amount }}</b>
+                        </td>
+                        <td class="text-right">
+                            <b>{{ doc.net_total }}</b>
+                        </td>
+                    </tr>     
+                    <tr>
+                        <th colspan="2" class="text-center">
+                            <b>{{_("Vat Amount")}}</b>
+                        </th>
+                        <td class="text-right border-bottom">
+                            <b>{{ doc.total_taxes_and_charges }}</b>
+                        </td>                        
+                    </tr>   
+                    <tr>
+                        <th colspan="2" class="text-center">
+                            <b>{{_("Total Amount")}}</b>
+                        </th>
+                        <td class="text-right">
+                            <b>{{ doc.grand_total }}</b>
+                        </td>                        
+                    </tr>              
+                </tbody>
+            </table>
+        </div>        
+    </div>
+
+    <div class="row border-bottom m-0">
+        <div class="col-xs-12">
+            {{ doc.terms }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6" style="margin-top: 40px;">
+            <hr/>
+            On Behalf Of :<br/>
+            {{ doc.company }}
+        </div>
+        <div class="col-xs-6" style="margin-top: 40px;">
+            <hr/>
+            On Behalf Of :<br/>
+            {{ doc.customer_name }}
+        </div>
+    </div>
+</div>

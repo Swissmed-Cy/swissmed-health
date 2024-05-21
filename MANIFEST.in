@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include swissmedhealth *.css
+recursive-include swissmedhealth *.csv
+recursive-include swissmedhealth *.html
+recursive-include swissmedhealth *.ico
+recursive-include swissmedhealth *.js
+recursive-include swissmedhealth *.json
+recursive-include swissmedhealth *.md
+recursive-include swissmedhealth *.png
+recursive-include swissmedhealth *.py
+recursive-include swissmedhealth *.svg
+recursive-include swissmedhealth *.txt
+recursive-exclude swissmedhealth *.pyc

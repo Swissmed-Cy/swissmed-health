@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-01-29 09:31:13.856656",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "gdpr_notice",
+  "accept_registration",
+  "column_break_cqqy5",
+  "accept_personal_data",
+  "column_break_8bnez",
+  "accept_communication",
+  "section_break_wilzw",
+  "signature",
+  "column_break_npacb",
+  "acceptance_date"
+ ],
+ "fields": [
+  {
+   "description": "I understand and accept that the Center has the right to approve or reject my registration application at any point in time.",
+   "fieldname": "accept_registration",
+   "fieldtype": "Select",
+   "label": "Accept Registration",
+   "options": "No\nYes"
+  },
+  {
+   "description": "The information collected with this questionnaire will be used by Swissmed Health for medical services and practices. Your personal data and information will remain with Swissmed Health for us to provide you with medical services and other related services both at the center and also potentially to other health centers. This may require that your personal data including medical records to be shared with other medical service providers for referral purposes as well as other legal and procedural purposes of the center.",
+   "fieldname": "gdpr_notice",
+   "fieldtype": "Section Break",
+   "label": " Your personal information"
+  },
+  {
+   "fieldname": "column_break_cqqy5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "I confirm that to the best of my knowledge the information that I have given on this registration form/questionnaire is accurate. Additionally, I understand that it is my responsibility to inform and update the Center as to any changes to my personal data and information.",
+   "fieldname": "accept_personal_data",
+   "fieldtype": "Select",
+   "label": "Accept Personal Data",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "column_break_8bnez",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "I hereby give my consent to the Center to communicate with me via phone, email or other means for updates as to new medical programs, upcoming lectures and conferences as well as Center news.",
+   "fieldname": "accept_communication",
+   "fieldtype": "Select",
+   "label": "Accept Communication",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "section_break_wilzw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Signature",
+   "label": "Signature"
+  },
+  {
+   "fieldname": "column_break_npacb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "acceptance_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "CUS-CON-.YYYY.-",
+   "print_hide": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Lead",
+   "link_fieldname": "custom_customer_consent"
+  },
+  {
+   "link_doctype": "Patient",
+   "link_fieldname": "custom_customer_consent"
+  }
+ ],
+ "modified": "2024-02-16 18:57:05.980696",
+ "modified_by": "Administrator",
+ "module": "Swissmedhealth",
+ "name": "Customer Consent",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

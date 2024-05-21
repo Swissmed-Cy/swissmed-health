@@ -1,0 +1,478 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-01-29 07:20:45.910149",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_5ztfh",
+  "amalgam_fillings",
+  "amalgam_fillings_no",
+  "amalgam_fillings_removed",
+  "amalgam_fillings_removed_no",
+  "bone_grafts",
+  "bridges",
+  "composite_fillings",
+  "composite_fillings_no",
+  "crowns",
+  "crowns_no",
+  "column_break_ur7m7",
+  "dentures",
+  "implants",
+  "implants_no",
+  "implants_desc",
+  "orthodontic_treatment",
+  "periodontal_treatment",
+  "root_fillings",
+  "root_fillings_no",
+  "tooth_fracture",
+  "column_break_6weei",
+  "wisdom_tooth_extraction",
+  "excessive_bleeding",
+  "complications_after_extractions",
+  "adverse_reactions_to_anaesthetic",
+  "dental_x_rays",
+  "last_dentist_visit",
+  "last_dentist_address",
+  "section_break_rhm4a",
+  "biting_pain",
+  "biting_pain_desc",
+  "cold_hot_sweet_sensitivity",
+  "cold_hot_sweet_sensitivity_desc",
+  "food_traps",
+  "food_traps_desc",
+  "chew_both_sites",
+  "chew_both_sites_desc",
+  "bad_breath",
+  "gums_bleed",
+  "use_floss",
+  "use_dental_irrigator",
+  "use_interdental_sticks",
+  "column_break_r7aft",
+  "oral_hygiene",
+  "grind_night",
+  "grind_stress",
+  "jaw_joints_click",
+  "have_tinnitus",
+  "know_oral_infections_cause",
+  "know_bone_loss",
+  "know_cavitation",
+  "know_blotting_brushes",
+  "column_break_1jviv",
+  "nervours_dental_treatment",
+  "nervours_dental_treatmentnervours_dental_treatment_desc",
+  "happy_teeth_appearance",
+  "happy_teeth_appearance_desc",
+  "toothbrush_type",
+  "toothbrush_type_make",
+  "favorite_toothpaste",
+  "brush_duration"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_5ztfh",
+   "fieldtype": "Section Break",
+   "label": "Have you or have you previously had"
+  },
+  {
+   "fieldname": "amalgam_fillings",
+   "fieldtype": "Select",
+   "label": "Amalgam fillings",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.amalgam_fillings=='Yes'",
+   "fieldname": "amalgam_fillings_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "fieldname": "amalgam_fillings_removed",
+   "fieldtype": "Select",
+   "label": "Amalgam fillings removed",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.amalgam_fillings_removed=='Yes'",
+   "fieldname": "amalgam_fillings_removed_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "fieldname": "bone_grafts",
+   "fieldtype": "Select",
+   "label": "Bone grafts",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "bridges",
+   "fieldtype": "Select",
+   "label": "Bridges",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "composite_fillings",
+   "fieldtype": "Select",
+   "label": "Composite fillings",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.composite_fillings=='Yes'",
+   "fieldname": "composite_fillings_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "fieldname": "crowns",
+   "fieldtype": "Select",
+   "label": "Crowns",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.crowns=='Yes'",
+   "fieldname": "crowns_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "fieldname": "dentures",
+   "fieldtype": "Select",
+   "label": "Dentures",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "implants",
+   "fieldtype": "Select",
+   "label": "Implants",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.implants=='Yes'",
+   "fieldname": "implants_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "depends_on": "eval:doc.implants=='Yes'",
+   "fieldname": "implants_desc",
+   "fieldtype": "Small Text",
+   "label": "What material"
+  },
+  {
+   "fieldname": "orthodontic_treatment",
+   "fieldtype": "Select",
+   "label": "Orthodontic treatment (Braces)",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "periodontal_treatment",
+   "fieldtype": "Select",
+   "label": "Periodontal treatment (Gum treatment)",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "root_fillings",
+   "fieldtype": "Select",
+   "label": "Root fillings",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "depends_on": "eval:doc.root_fillings=='Yes'",
+   "fieldname": "root_fillings_no",
+   "fieldtype": "Int",
+   "label": "How many"
+  },
+  {
+   "fieldname": "tooth_fracture",
+   "fieldtype": "Select",
+   "label": "Tooth fracture",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "wisdom_tooth_extraction",
+   "fieldtype": "Select",
+   "label": "Wisdom tooth extraction",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "excessive_bleeding",
+   "fieldtype": "Select",
+   "label": "Excessive bleeding after extractions?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "complications_after_extractions",
+   "fieldtype": "Select",
+   "label": "Complications after extractions?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "adverse_reactions_to_anaesthetic",
+   "fieldtype": "Select",
+   "label": "Adverse reactions to anaesthetic?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "dental_x_rays",
+   "fieldtype": "Select",
+   "label": "Have you had any dental x-rays in the last 3 months?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "last_dentist_visit",
+   "fieldtype": "Select",
+   "label": "How many months since you last saw a dentist?",
+   "options": "Never\n6\n12\nLonger"
+  },
+  {
+   "depends_on": "eval:doc.last_dentist_visit!='Never'",
+   "fieldname": "last_dentist_address",
+   "fieldtype": "Small Text",
+   "label": "Name and address of dentist"
+  },
+  {
+   "fieldname": "section_break_rhm4a",
+   "fieldtype": "Section Break",
+   "label": "Do you have pain or discomfort when"
+  },
+  {
+   "fieldname": "biting_pain",
+   "fieldtype": "Select",
+   "label": "When biting or chewing",
+   "options": "No\nYes"
+  },
+  {
+   "depends_on": "eval:doc.biting_pain=='Yes'",
+   "fieldname": "biting_pain_desc",
+   "fieldtype": "Small Text",
+   "label": "Where"
+  },
+  {
+   "fieldname": "column_break_ur7m7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_6weei",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cold_hot_sweet_sensitivity",
+   "fieldtype": "Select",
+   "label": "Cold, hot or sweet sensitivity",
+   "options": "No\nYes"
+  },
+  {
+   "depends_on": "eval:doc.cold_hot_sweet_sensitivity=='Yes'",
+   "fieldname": "cold_hot_sweet_sensitivity_desc",
+   "fieldtype": "Small Text",
+   "label": "Where"
+  },
+  {
+   "fieldname": "food_traps",
+   "fieldtype": "Select",
+   "label": "Do you have food traps",
+   "options": "No\nYes"
+  },
+  {
+   "depends_on": "eval:doc.food_traps=='Yes'",
+   "fieldname": "food_traps_desc",
+   "fieldtype": "Small Text",
+   "label": "Where"
+  },
+  {
+   "fieldname": "chew_both_sites",
+   "fieldtype": "Select",
+   "label": "Do you chew on both sides",
+   "options": "Yes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.chew_both_sites=='No'",
+   "fieldname": "chew_both_sites_desc",
+   "fieldtype": "Small Text",
+   "label": "Why not"
+  },
+  {
+   "fieldname": "bad_breath",
+   "fieldtype": "Select",
+   "label": "Do you suffer from bad breath?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "gums_bleed",
+   "fieldtype": "Select",
+   "label": "Do your gums bleed on brushing or flossing?",
+   "options": "No\nYes\nSometimes"
+  },
+  {
+   "fieldname": "use_floss",
+   "fieldtype": "Select",
+   "label": "Do you use floss?",
+   "options": "No\nYes\nSometimes"
+  },
+  {
+   "fieldname": "use_dental_irrigator",
+   "fieldtype": "Select",
+   "label": "Do you use a dental irrigator?",
+   "options": "No\nYes\nSometimes"
+  },
+  {
+   "fieldname": "use_interdental_sticks",
+   "fieldtype": "Select",
+   "label": "Do you use interdental sticks between teeth?",
+   "options": "No\nYes\nSometimes"
+  },
+  {
+   "fieldname": "toothbrush_type",
+   "fieldtype": "Select",
+   "label": "What type of toothbrush do you use?",
+   "options": "Manual\nElectric"
+  },
+  {
+   "depends_on": "eval:doc.toothbrush_type=='Electric'",
+   "fieldname": "toothbrush_type_make",
+   "fieldtype": "Small Text",
+   "label": "Make"
+  },
+  {
+   "fieldname": "brush_duration",
+   "fieldtype": "Small Text",
+   "label": "How often and how long do you brush your teeth?"
+  },
+  {
+   "fieldname": "favorite_toothpaste",
+   "fieldtype": "Small Text",
+   "label": "Your favorite toothpaste?"
+  },
+  {
+   "fieldname": "oral_hygiene",
+   "fieldtype": "Select",
+   "label": "Have you been instructed in Oral Hygiene?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "grind_night",
+   "fieldtype": "Select",
+   "label": "Do you clench/grind your teeth at night?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "grind_stress",
+   "fieldtype": "Select",
+   "label": "Do you clench/grind when under stress?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "jaw_joints_click",
+   "fieldtype": "Select",
+   "label": "Do your jaw joints click or pop?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "have_tinnitus",
+   "fieldtype": "Select",
+   "label": "Do you have Tinnitus?",
+   "options": "No\nYes\nDon't know"
+  },
+  {
+   "fieldname": "know_oral_infections_cause",
+   "fieldtype": "Select",
+   "label": "Do you know oral infections can cause systemic symptoms?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "know_bone_loss",
+   "fieldtype": "Select",
+   "label": "Do you know you can have bone loss without being aware of it?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "know_cavitation",
+   "fieldtype": "Select",
+   "label": "Do you know what a cavitation is?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "know_blotting_brushes",
+   "fieldtype": "Select",
+   "label": "Have you ever heard of Blotting Brushes?",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "nervours_dental_treatment",
+   "fieldtype": "Select",
+   "label": "Are you nervous about dental treatment?",
+   "options": "No\nYes"
+  },
+  {
+   "depends_on": "eval:doc.nervours_dental_treatment=='Yes'",
+   "fieldname": "nervours_dental_treatmentnervours_dental_treatment_desc",
+   "fieldtype": "Small Text",
+   "label": "What in particular?"
+  },
+  {
+   "fieldname": "happy_teeth_appearance",
+   "fieldtype": "Select",
+   "label": "Are you happy with the appearance of your teeth?",
+   "options": "Yes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.happy_teeth_appearance=='No'",
+   "fieldname": "happy_teeth_appearance_desc",
+   "fieldtype": "Small Text",
+   "label": "What would you like changed"
+  },
+  {
+   "fieldname": "column_break_r7aft",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_1jviv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "DNT-HIS-.YYYY.-",
+   "print_hide": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Lead",
+   "link_fieldname": "custom_dental_history"
+  },
+  {
+   "link_doctype": "Patient",
+   "link_fieldname": "custom_dental_history"
+  }
+ ],
+ "modified": "2024-02-16 18:56:41.092587",
+ "modified_by": "Administrator",
+ "module": "Swissmedhealth",
+ "name": "Dental History",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
