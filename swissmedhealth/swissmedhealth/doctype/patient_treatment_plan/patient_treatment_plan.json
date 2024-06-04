@@ -1,0 +1,184 @@
+{
+ "actions": [],
+ "autoname": "naming_series:naming_series..###",
+ "creation": "2024-05-31 14:10:38.751398",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "treatment_plan_section",
+  "naming_series",
+  "patient_appointment",
+  "title",
+  "master_category",
+  "sub_category",
+  "column_break_dejz",
+  "system_price",
+  "start_date",
+  "end_date",
+  "duration",
+  "hr_lock",
+  "staff",
+  "book_resource_section",
+  "center_location",
+  "floor",
+  "room",
+  "column_break_hmip",
+  "total_chairs",
+  "totals_beds",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Code",
+   "options": "TR\nCN"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Link",
+   "label": "Title",
+   "options": "Treatment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "master_category",
+   "fieldtype": "Select",
+   "label": "Master Category",
+   "options": "Treatment\nConsulation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sub_category",
+   "fieldtype": "Link",
+   "label": "Sub Category",
+   "options": "Sub Category"
+  },
+  {
+   "fieldname": "system_price",
+   "fieldtype": "Currency",
+   "label": "System Price"
+  },
+  {
+   "fieldname": "column_break_dejz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Float",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "hr_lock",
+   "fieldtype": "Select",
+   "label": "HR Lock",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "treatment_plan_section",
+   "fieldtype": "Section Break",
+   "label": "Treatment Plan"
+  },
+  {
+   "fieldname": "book_resource_section",
+   "fieldtype": "Section Break",
+   "label": "Book Resource"
+  },
+  {
+   "fieldname": "center_location",
+   "fieldtype": "Select",
+   "label": "Center Location",
+   "options": "Limassol\nNicosia"
+  },
+  {
+   "depends_on": "eval:doc.center_location == \"Limassol\";",
+   "fieldname": "floor",
+   "fieldtype": "Select",
+   "label": "Floor",
+   "options": "First\nGround"
+  },
+  {
+   "fieldname": "column_break_hmip",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_chairs",
+   "fieldtype": "Table MultiSelect",
+   "label": "Total Chairs",
+   "options": "Total Chairs Child"
+  },
+  {
+   "fieldname": "totals_beds",
+   "fieldtype": "Table MultiSelect",
+   "label": "Total Beds",
+   "options": "Totals Beds Child"
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "label": "Room",
+   "options": "Room Number"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Patient Treatment Plan",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "patient_appointment",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Patient Appointment",
+   "options": "Patient Appointment"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Datetime",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Datetime",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "staff",
+   "fieldtype": "Link",
+   "label": "Staff",
+   "options": "Healthcare Practitioner"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-03 12:11:30.473473",
+ "modified_by": "Administrator",
+ "module": "Swissmedhealth",
+ "name": "Patient Treatment Plan",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

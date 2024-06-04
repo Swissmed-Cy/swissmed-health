@@ -20,7 +20,7 @@
  "docstatus": 0,
  "doctype": "Web Form",
  "idx": 0,
- "introduction_text": "<div class=\"ql-editor read-mode\"><p>To begin your health journey with us, kindly complete the registration form below. It requires your personal and medical details, which are essential for us to offer you personalized service and care. Rest assured, your information is treated with the utmost confidentiality and security.</p></div>",
+ "introduction_text": "<div class=\"ql-editor read-mode\"><p><strong style=\"color: rgb(0, 102, 204);\">The information you submit, is automatically saved at the end of each page, by pressing </strong><strong>next </strong><strong style=\"color: rgb(0, 102, 204);\">and it is kept for 72 hours.</strong></p><p><strong style=\"color: rgb(0, 102, 204);\">Should you wish to return back to the registration form to complete it, just fill in your email address.</strong></p></div>",
  "is_standard": 1,
  "list_columns": [
   {
@@ -32,7 +32,7 @@
  "list_title": "Test",
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2024-05-23 09:22:09.592672",
+ "modified": "2024-05-27 17:29:34.791338",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "contact-us",
