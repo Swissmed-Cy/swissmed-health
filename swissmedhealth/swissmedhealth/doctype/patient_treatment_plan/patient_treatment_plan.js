@@ -102,8 +102,8 @@ function calculate_duration(frm) {
 
 frappe.ui.form.on('Patient Treatment Plan', {
     validate: function(frm) {
-        // Ensure the room, staff, start_date, and end_date fields are filled
-        if (frm.doc.room && frm.doc.staff && frm.doc.start_date && frm.doc.end_date) {
+        // Ensure the room, start_date, and end_date fields are filled
+        if (frm.doc.room && frm.doc.start_date && frm.doc.end_date) {
             // Query existing bookings for the same room and staff that overlap with the current booking's time slot
             frappe.call({
                 method: "frappe.client.get_list",
@@ -146,7 +146,7 @@ frappe.ui.form.on('Patient Treatment Plan', {
             });
         } else {
             // Handle case where required fields are not filled
-            frappe.msgprint(__('Please fill in the room, staff, start date, and end date fields.'));
+            frappe.msgprint(__('Please fill in the room, start date, and end date fields.'));
             frappe.validated = false;
         }
     }
