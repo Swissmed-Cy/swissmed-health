@@ -31,33 +31,80 @@ function calculate_duration(frm) {
     }
 }
 
-frappe.ui.form.on('Patient Treatment Plan', {
-    before_submit: function(frm) {
-        if (frm.doc.room) {
-            frappe.call({
-                method: "frappe.client.set_value",
-                args: {
-                    doctype: "Room Number",
-                    name: frm.doc.room,
-                    fieldname: "status",
-                    value: "Booked"
-                },
-                callback: function(r) {
-                    if (!r.exc) {
-                        console.log("Room status updated to Booked");
-                    } else {
-                        console.error("Failed to update room status");
-                    }
-                }
-            });
-        }
-    }
-});
+// frappe.ui.form.on('Patient Treatment Plan', {
+//     before_submit: function(frm) {
+//         if (frm.doc.room) {
+//             frappe.call({
+//                 method: "frappe.client.set_value",
+//                 args: {
+//                     doctype: "Room Number",
+//                     name: frm.doc.room,
+//                     fieldname: "status",
+//                     value: "Booked"
+//                 },
+//                 callback: function(r) {
+//                     if (!r.exc) {
+//                         console.log("Room status updated to Booked");
+//                     } else {
+//                         console.error("Failed to update room status");
+//                     }
+//                 }
+//             });
+//         }
+//     }
+// });
+
+
+// frappe.ui.form.on('Patient Treatment Plan', {
+//     validate: function(frm) {
+//         if (frm.doc.room && frm.doc.start_date && frm.doc.end_date) {
+//             frappe.call({
+//                 method: "frappe.client.get_list",
+//                 args: {
+//                     doctype: "Patient Treatment Plan",
+//                     fields: ["name"],
+//                     filters: [
+//                         ["room", "=", frm.doc.room],
+//                         ["start_date", "<", frm.doc.end_date],
+//                         ["end_date", ">", frm.doc.start_date],
+//                         ["name", "!=", frm.doc.name]
+//                     ]
+//                 },
+//                 callback: function(r) {
+//                     if (r.message.length > 0) {
+//                         frappe.msgprint(__('The selected room is already booked for the specified time slot. Please choose another room or time slot.'));
+//                         frappe.validated = false;
+//                     } else {
+//                         frappe.call({
+//                             method: "frappe.client.set_value",
+//                             args: {
+//                                 doctype: "Room Number",
+//                                 name: frm.doc.room,
+//                                 fieldname: "status",
+//                                 value: "Booked"
+//                             },
+//                             callback: function(r) {
+//                                 if (!r.exc) {
+//                                     console.log("Room status updated to Booked");
+//                                 } else {
+//                                     console.error("Failed to update room status");
+//                                 }
+//                             }
+//                         });
+//                     }
+//                 }
+//             });
+//         }
+//     }
+// });
+
 
 
 frappe.ui.form.on('Patient Treatment Plan', {
     validate: function(frm) {
-        if (frm.doc.room && frm.doc.start_date && frm.doc.end_date) {
+        // Ensure the room, staff, start_date, and end_date fields are filled
+        if (frm.doc.room && frm.doc.staff && frm.doc.start_date && frm.doc.end_date) {
+            // Query existing bookings for the same room and staff that overlap with the current booking's time slot
             frappe.call({
                 method: "frappe.client.get_list",
                 args: {
@@ -65,20 +112,23 @@ frappe.ui.form.on('Patient Treatment Plan', {
                     fields: ["name"],
                     filters: [
                         ["room", "=", frm.doc.room],
+                        ["staff", "=", frm.doc.staff],
                         ["start_date", "<", frm.doc.end_date],
                         ["end_date", ">", frm.doc.start_date],
                         ["name", "!=", frm.doc.name]
                     ]
                 },
                 callback: function(r) {
+                    // If there are overlapping bookings, show a message and prevent form submission
                     if (r.message.length > 0) {
-                        frappe.msgprint(__('The selected room is already booked for the specified time slot. Please choose another room or time slot.'));
+                        frappe.msgprint(__('The selected room is already booked by the same staff for the specified time slot. Please choose another room, staff, or time slot.'));
                         frappe.validated = false;
                     } else {
+                        // If no overlap, proceed to update the room status to "Booked"
                         frappe.call({
                             method: "frappe.client.set_value",
                             args: {
-                                doctype: "Room Number",
+                                doctype: "Room Number", // Ensure this is the correct doctype for rooms
                                 name: frm.doc.room,
                                 fieldname: "status",
                                 value: "Booked"
@@ -94,6 +144,10 @@ frappe.ui.form.on('Patient Treatment Plan', {
                     }
                 }
             });
+        } else {
+            // Handle case where required fields are not filled
+            frappe.msgprint(__('Please fill in the room, staff, start date, and end date fields.'));
+            frappe.validated = false;
         }
     }
 });

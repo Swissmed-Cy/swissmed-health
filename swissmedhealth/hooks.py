@@ -227,3 +227,15 @@ doc_events = {
 # auth_hooks = [
 #	"swissmedhealth.auth.validate"
 # ]
+
+fixtures = [{
+    "doctype": "Client Script",
+        "filters": {
+            "name": [ "in", ["Custom button patient appointment"] ]
+            }
+        },
+    ]
+
+fixtures = [
+    {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
+]

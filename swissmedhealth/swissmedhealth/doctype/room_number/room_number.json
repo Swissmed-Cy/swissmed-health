@@ -19,13 +19,14 @@
    "default": "Available",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Available\nBooked"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-03 12:09:22.324184",
+ "modified": "2024-06-05 13:51:04.552434",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Room Number",
