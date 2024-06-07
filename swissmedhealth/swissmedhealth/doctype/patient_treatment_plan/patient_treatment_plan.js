@@ -100,19 +100,72 @@ function calculate_duration(frm) {
 
 
 
+// frappe.ui.form.on('Patient Treatment Plan', {
+//     validate: function(frm) {
+//         // Ensure the room, start_date, and end_date fields are filled
+//         if (frm.doc.room && frm.doc.start_date && frm.doc.end_date) {
+//             // Query existing bookings for the same room and staff that overlap with the current booking's time slot
+//             frappe.call({
+//                 method: "frappe.client.get_list",
+//                 args: {
+//                     doctype: "Patient Treatment Plan",
+//                     fields: ["name"],
+//                     filters: [
+//                         ["room", "=", frm.doc.room],
+//                         ["staff", "=", frm.doc.staff],
+//                         ["start_date", "<", frm.doc.end_date],
+//                         ["end_date", ">", frm.doc.start_date],
+//                         ["name", "!=", frm.doc.name]
+//                     ]
+//                 },
+//                 callback: function(r) {
+//                     // If there are overlapping bookings, show a message and prevent form submission
+//                     if (r.message.length > 0) {
+//                         frappe.msgprint(__('The selected room is already booked by the same staff for the specified time slot. Please choose another room, staff, or time slot.'));
+//                         frappe.validated = false;
+//                     } else {
+//                         // If no overlap, proceed to update the room status to "Booked"
+//                         frappe.call({
+//                             method: "frappe.client.set_value",
+//                             args: {
+//                                 doctype: "Room Number", // Ensure this is the correct doctype for rooms
+//                                 name: frm.doc.room,
+//                                 fieldname: "status",
+//                                 value: "Booked"
+//                             },
+//                             callback: function(r) {
+//                                 if (!r.exc) {
+//                                     console.log("Room status updated to Booked");
+//                                 } else {
+//                                     console.error("Failed to update room status");
+//                                 }
+//                             }
+//                         });
+//                     }
+//                 }
+//             });
+//         } else {
+//             // Handle case where required fields are not filled
+//             frappe.msgprint(__('Please fill in the room, start date, and end date fields.'));
+//             frappe.validated = false;
+//         }
+//     }
+// });
+
+
+
 frappe.ui.form.on('Patient Treatment Plan', {
     validate: function(frm) {
-        // Ensure the room, start_date, and end_date fields are filled
-        if (frm.doc.room && frm.doc.start_date && frm.doc.end_date) {
-            // Query existing bookings for the same room and staff that overlap with the current booking's time slot
+        // Ensure the chair, start_date, and end_date fields are filled
+        if (frm.doc.total_chairs && frm.doc.start_date && frm.doc.end_date) {
+            // Query existing bookings for the same chair that overlap with the current booking's time slot
             frappe.call({
                 method: "frappe.client.get_list",
                 args: {
                     doctype: "Patient Treatment Plan",
                     fields: ["name"],
                     filters: [
-                        ["room", "=", frm.doc.room],
-                        ["staff", "=", frm.doc.staff],
+                        ["total_chairs", "=", frm.doc.total_chairs],
                         ["start_date", "<", frm.doc.end_date],
                         ["end_date", ">", frm.doc.start_date],
                         ["name", "!=", frm.doc.name]
@@ -121,23 +174,23 @@ frappe.ui.form.on('Patient Treatment Plan', {
                 callback: function(r) {
                     // If there are overlapping bookings, show a message and prevent form submission
                     if (r.message.length > 0) {
-                        frappe.msgprint(__('The selected room is already booked by the same staff for the specified time slot. Please choose another room, staff, or time slot.'));
+                        frappe.msgprint(__('The selected chair is already booked. Please choose another chair or time slot.'));
                         frappe.validated = false;
                     } else {
-                        // If no overlap, proceed to update the room status to "Booked"
+                        // If no overlap, proceed to update the chair status to "Booked"
                         frappe.call({
                             method: "frappe.client.set_value",
                             args: {
-                                doctype: "Room Number", // Ensure this is the correct doctype for rooms
-                                name: frm.doc.room,
+                                doctype: "Total Chair", // Ensure this is the correct doctype for chairs
+                                name: frm.doc.total_chairs,
                                 fieldname: "status",
                                 value: "Booked"
                             },
                             callback: function(r) {
                                 if (!r.exc) {
-                                    console.log("Room status updated to Booked");
+                                    console.log("Chair status updated to Booked");
                                 } else {
-                                    console.error("Failed to update room status");
+                                    console.error("Failed to update chair status");
                                 }
                             }
                         });
@@ -146,7 +199,7 @@ frappe.ui.form.on('Patient Treatment Plan', {
             });
         } else {
             // Handle case where required fields are not filled
-            frappe.msgprint(__('Please fill in the room, start date, and end date fields.'));
+            frappe.msgprint(__('Please fill in the chair, start date, and end date fields.'));
             frappe.validated = false;
         }
     }

@@ -1,27 +1,29 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:total_chairs",
- "creation": "2024-05-31 16:17:49.590993",
+ "autoname": "field:name1",
+ "creation": "2024-06-07 09:43:27.998726",
+ "default_view": "List",
  "doctype": "DocType",
+ "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "total_chairs"
+  "name1"
  ],
  "fields": [
   {
-   "fieldname": "total_chairs",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Total Chairs",
+   "label": "Name",
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-31 16:22:34.888122",
+ "modified": "2024-06-07 09:43:35.251291",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
- "name": "Total Chairs",
+ "name": "Total Chair",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

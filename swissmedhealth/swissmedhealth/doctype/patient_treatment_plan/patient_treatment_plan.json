@@ -105,9 +105,9 @@
   },
   {
    "fieldname": "total_chairs",
-   "fieldtype": "Table MultiSelect",
+   "fieldtype": "Link",
    "label": "Total Chairs",
-   "options": "Total Chairs Child"
+   "options": "Total Chair"
   },
   {
    "fieldname": "totals_beds",
@@ -159,7 +159,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-05 13:52:54.487202",
+ "modified": "2024-06-07 09:44:24.144798",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Patient Treatment Plan",

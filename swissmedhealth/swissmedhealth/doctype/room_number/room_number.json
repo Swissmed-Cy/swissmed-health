@@ -5,8 +5,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "room_number",
-  "status"
+  "room_number"
  ],
  "fields": [
   {
@@ -14,19 +13,11 @@
    "fieldtype": "Data",
    "label": "Room Number",
    "unique": 1
-  },
-  {
-   "default": "Available",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Status",
-   "options": "Available\nBooked"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-05 13:51:04.552434",
+ "modified": "2024-06-07 10:08:37.267614",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Room Number",

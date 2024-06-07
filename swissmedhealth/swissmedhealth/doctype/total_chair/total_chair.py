@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class TotalChairs(Document):
+class TotalChair(Document):
 	pass
