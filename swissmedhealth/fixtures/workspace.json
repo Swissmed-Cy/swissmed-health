@@ -1195,7 +1195,7 @@
     "is_query_report": 0,
     "label": "Total Chairs",
     "link_count": 0,
-    "link_to": "Total Chairs",
+    "link_to": "Total Chair",
     "link_type": "DocType",
     "onboard": 0,
     "only_for": null,
@@ -1221,7 +1221,7 @@
     "type": "Link"
    }
   ],
-  "modified": "2024-06-03 12:46:23.040897",
+  "modified": "2024-06-07 10:56:54.503628",
   "module": "Healthcare",
   "name": "Healthcare",
   "number_cards": [
