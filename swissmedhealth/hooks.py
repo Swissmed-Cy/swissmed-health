@@ -231,27 +231,31 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "=", ["Custom Buttion Therapy Plan"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan"] ]
             }
         },
-    ],
+    ]
+
+
+
+
 
 # fixtures = [
 #     {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
 # ]
 
-fixtures = [
-    {
-        "doctype": "Workspace",
-        "filters": [
-            [
-                "name", "in", [
-                    "Healthcare"
-                ]
-            ]
-        ]
-    }
-]
+# fixtures = [
+#     {
+#         "doctype": "Workspace",
+#         "filters": [
+#             [
+#                 "name", "in", [
+#                     "Healthcare"
+#                 ]
+#             ]
+#         ]
+#     }
+# ]
 
 
 # override_whitelisted_methods = {
