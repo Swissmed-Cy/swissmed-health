@@ -32,13 +32,13 @@ app_license = "MIT"
 doctype_js = {
     "Customer": "public/js/customer.js",
     "Lead": "public/js/lead.js",
-    "CRM Activities": "public/js/crm_activities.js",
-    "Patient Appointment": "public/js/patient.js"
+    "CRM Activities": "public/js/crm_activities.js"
+
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 doctype_calendar_js = {"Patient Appointment" : "public/js/patient_appointment_calendar.js"}
-
+doctype_calendar_js = {"Therapy Session" : "public/js/therapy_session_calendar.js"}
 # Home Pages
 # ----------
 
@@ -231,11 +231,33 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom button patient appointment"] ]
+            "name": [ "=", ["Custom Buttion Therapy Plan"] ]
             }
         },
-    ]
+    ],
+
+# fixtures = [
+#     {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
+# ]
 
 fixtures = [
-    {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
+    {
+        "doctype": "Workspace",
+        "filters": [
+            [
+                "name", "in", [
+                    "Healthcare"
+                ]
+            ]
+        ]
+    }
 ]
+
+
+# override_whitelisted_methods = {
+#   "frappe-bench.apps.healthcare.healthcare.doctype.therapy_plan.therapy_plan.js": "swissmedhealth.public.js.custom_therapy_plan.js"
+# }
+
+# doctype_js = {
+#     "Therapy Plan": "public/js/custom_therapy_plan.js",
+# }

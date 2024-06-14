@@ -7,8 +7,9 @@
  "field_order": [
   "treatment_plan_section",
   "naming_series",
-  "patient_appointment",
-  "title",
+  "therapy_id",
+  "patient",
+  "treatment_name",
   "master_category",
   "sub_category",
   "column_break_dejz",
@@ -37,26 +38,20 @@
    "options": "TR\nCN"
   },
   {
-   "fieldname": "title",
-   "fieldtype": "Link",
-   "label": "Title",
-   "options": "Treatment",
-   "reqd": 1
-  },
-  {
+   "fetch_from": "treatment_name.master_category",
    "fieldname": "master_category",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Master Category",
-   "options": "Treatment\nConsulation",
    "reqd": 1
   },
   {
+   "fetch_from": "treatment_name.sub_category",
    "fieldname": "sub_category",
-   "fieldtype": "Link",
-   "label": "Sub Category",
-   "options": "Sub Category"
+   "fieldtype": "Data",
+   "label": "Sub Category"
   },
   {
+   "fetch_from": "treatment_name.system_price",
    "fieldname": "system_price",
    "fieldtype": "Currency",
    "label": "System Price"
@@ -66,6 +61,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "treatment_name.duration",
    "fieldname": "duration",
    "fieldtype": "Float",
    "label": "Duration"
@@ -87,6 +83,7 @@
    "label": "Book Resource"
   },
   {
+   "fetch_from": "treatment_name.center_location",
    "fieldname": "center_location",
    "fieldtype": "Select",
    "label": "Center Location",
@@ -94,6 +91,7 @@
   },
   {
    "depends_on": "eval:doc.center_location == \"Limassol\";",
+   "fetch_from": "treatment_name.floor",
    "fieldname": "floor",
    "fieldtype": "Select",
    "label": "Floor",
@@ -104,21 +102,24 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": ".total_chairs",
    "fieldname": "total_chairs",
    "fieldtype": "Link",
    "label": "Total Chairs",
    "options": "Total Chair"
   },
   {
+   "fetch_from": ".total_beds",
    "fieldname": "totals_beds",
-   "fieldtype": "Table MultiSelect",
+   "fieldtype": "Link",
    "label": "Total Beds",
-   "options": "Totals Beds Child"
+   "options": "Totals Beds"
   },
   {
+   "fetch_from": "treatment_name.room",
    "fieldname": "room",
    "fieldtype": "Link",
-   "label": "Room",
+   "label": "Room Number",
    "options": "Room Number"
   },
   {
@@ -132,34 +133,48 @@
    "search_index": 1
   },
   {
-   "fieldname": "patient_appointment",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Patient Appointment",
-   "options": "Patient Appointment"
-  },
-  {
    "fieldname": "start_date",
    "fieldtype": "Datetime",
    "label": "Start Date"
   },
   {
-   "fieldname": "end_date",
-   "fieldtype": "Datetime",
-   "label": "End Date"
-  },
-  {
-   "depends_on": "eval:doc.hr_lock=='Yes'",
+   "fetch_from": ".staff",
    "fieldname": "staff",
    "fieldtype": "Link",
    "label": "Staff",
    "options": "Healthcare Practitioner"
+  },
+  {
+   "fieldname": "therapy_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Therapy ID",
+   "options": "Therapy Plan"
+  },
+  {
+   "fetch_from": "therapy_id.patient_name",
+   "fieldname": "patient",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Patient"
+  },
+  {
+   "fieldname": "treatment_name",
+   "fieldtype": "Link",
+   "label": "Treatment Name",
+   "options": "Treatment Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Datetime",
+   "label": "End Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-07 09:44:24.144798",
+ "modified": "2024-06-12 12:14:46.621881",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Patient Treatment Plan",

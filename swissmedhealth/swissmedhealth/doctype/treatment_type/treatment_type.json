@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:treatment_name",
+ "creation": "2024-06-10 17:04:56.233783",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "treatment_name",
+  "master_category",
+  "sub_category",
+  "system_price",
+  "duration",
+  "column_break_fudb",
+  "center_location",
+  "floor",
+  "room"
+ ],
+ "fields": [
+  {
+   "fieldname": "treatment_name",
+   "fieldtype": "Data",
+   "label": "Treatment Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "master_category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Master Category",
+   "unique": 1
+  },
+  {
+   "fieldname": "sub_category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sub Category",
+   "unique": 1
+  },
+  {
+   "fieldname": "system_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "System Price"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Duration"
+  },
+  {
+   "fieldname": "center_location",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Center Location",
+   "options": "Limassol\nNicosia"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Floor",
+   "options": "First\nGround"
+  },
+  {
+   "fieldname": "column_break_fudb",
+   "fieldtype": "Column Break",
+   "label": "Book Resource"
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room Number",
+   "options": "Room Number"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-12 12:14:26.297362",
+ "modified_by": "Administrator",
+ "module": "Swissmedhealth",
+ "name": "Treatment Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

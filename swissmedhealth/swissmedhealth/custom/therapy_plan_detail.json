@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Therapy Plan Detail",
+ "links": [],
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2024-06-12 16:49:27.897902",
+   "default_value": null,
+   "doc_type": "Therapy Plan Detail",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "therapy_type",
+   "idx": 0,
+   "is_system_generated": 0,
+   "modified": "2024-06-12 16:49:27.897902",
+   "modified_by": "Administrator",
+   "module": null,
+   "name": "Therapy Plan Detail-therapy_type-label",
+   "owner": "Administrator",
+   "property": "label",
+   "property_type": "Data",
+   "row_name": null,
+   "value": "Treatment Name"
+  }
+ ],
+ "sync_on_migrate": 1
+}
