@@ -232,7 +232,7 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select"] ]
             }
         },
     ]
@@ -245,18 +245,18 @@ fixtures = [{
 #     {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
 # ]
 
-# fixtures = [
-#     {
-#         "doctype": "Workspace",
-#         "filters": [
-#             [
-#                 "name", "in", [
-#                     "Healthcare"
-#                 ]
-#             ]
-#         ]
-#     }
-# ]
+fixtures = [
+    {
+        "doctype": "Workspace",
+        "filters": [
+            [
+                "name", "in", [
+                    "Healthcare"
+                ]
+            ]
+        ]
+    }
+]
 
 
 

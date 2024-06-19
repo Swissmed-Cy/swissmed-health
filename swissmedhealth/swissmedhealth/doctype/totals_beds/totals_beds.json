@@ -1,24 +1,24 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:totals_beds",
+ "autoname": "field:name1",
  "creation": "2024-05-31 16:18:45.562429",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "totals_beds"
+  "name1"
  ],
  "fields": [
   {
-   "fieldname": "totals_beds",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Totals Beds",
+   "label": "Name",
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-31 16:22:53.718483",
+ "modified": "2024-06-19 14:58:28.573765",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Totals Beds",

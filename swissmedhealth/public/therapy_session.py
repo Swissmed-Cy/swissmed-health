@@ -96,3 +96,21 @@ def get_total_chair_by_therapy_types(therapy_type_ids):
         sessions_rooms.append(chair.get('name1'))
     return sessions_rooms
 
+@frappe.whitelist()
+def get_total_beds_by_therapy_types(therapy_type_ids):
+    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+    if not therapy_type_ids:
+        return []
+
+    # Convert the comma-separated string of IDs into a list
+    therapy_type_ids = therapy_type_ids.split(',')
+    total_beds = frappe.db.get_all('Totals Beds Child',
+                                     filters={'parent': ['in', therapy_type_ids]},
+                                     fields=['totals_beds'])
+    print(":::::::::total_beds:::::::::::::::",total_beds)
+
+    sessions_rooms = []
+    for bed in total_beds:
+        sessions_rooms.append(bed.get('totals_beds'))
+    return sessions_rooms
+

@@ -1237,7 +1237,7 @@
     "type": "Link"
    }
   ],
-  "modified": "2024-06-14 16:32:03.838958",
+  "modified": "2024-06-19 15:38:22.524245",
   "module": "Healthcare",
   "name": "Healthcare",
   "number_cards": [
@@ -1277,22 +1277,6 @@
   "roles": [],
   "sequence_id": 13.0,
   "shortcuts": [
-   {
-    "color": "Orange",
-    "doc_view": "List",
-    "format": "{} Open",
-    "icon": null,
-    "kanban_board": null,
-    "label": "Patient Appointment",
-    "link_to": "Patient Appointment",
-    "parent": "Healthcare",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
-    "restrict_to_domain": null,
-    "stats_filter": "{\n    \"status\": \"Open\",\n    \"company\": [\"like\", '%' + frappe.defaults.get_global_default(\"company\") + '%']\n}",
-    "type": "DocType",
-    "url": null
-   },
    {
     "color": "#761ACB",
     "doc_view": "List",

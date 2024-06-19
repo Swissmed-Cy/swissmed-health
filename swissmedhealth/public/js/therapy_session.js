@@ -61,3 +61,32 @@ frappe.ui.form.on('Therapy Session', {
         }
     }
 });
+
+frappe.ui.form.on('Therapy Session', {
+    therapy_type: function(frm) {
+        console.log("test :::::::::::::::::::::::::::::::::::");
+        if(frm.doc.therapy_type) {
+            // Fetch room numbers based on selected therapy types
+            frappe.call({
+                method: 'swissmedhealth.public.therapy_session.get_total_beds_by_therapy_types',
+                args: {
+                    therapy_type_ids: frm.doc.therapy_type
+                },
+                callback: function(r) {
+                    if(r.message) {
+                        let bed_numbers = r.message;
+                        frm.clear_table("custom_total_beds");  // Assuming "room_numbers" is the table field
+                        
+                        bed_numbers.forEach(function(bed) {
+                            console.log("bed ::::::::::::::::", bed);
+                            let new_row = frm.add_child("custom_total_beds");
+                            new_row.totals_beds = bed;
+                        });
+                        
+                        refresh_field("custom_total_beds");
+                    }
+                }
+            });
+        }
+    }
+});
