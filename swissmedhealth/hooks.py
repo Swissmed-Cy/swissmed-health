@@ -32,7 +32,8 @@ app_license = "MIT"
 doctype_js = {
     "Customer": "public/js/customer.js",
     "Lead": "public/js/lead.js",
-    "CRM Activities": "public/js/crm_activities.js"
+    "CRM Activities": "public/js/crm_activities.js",
+    "Therapy Session": "public/js/therapy_session.js"
 
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -231,7 +232,7 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom Buttion Therapy Plan"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View"] ]
             }
         },
     ]

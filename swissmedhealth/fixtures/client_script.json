@@ -9,5 +9,16 @@
   "name": "Custom Buttion Therapy Plan",
   "script": "frappe.ui.form.on('Therapy Plan', {\n\trefresh: function(frm,cdt,cdn) {\n\t    frm.page.remove_inner_button(__('Therapy Session'),  __('Create'));\n\t\tfrm.add_custom_button(__(\"Treatment Appointment\"), function() {\t    \t\t\n\t\t\tfrappe.new_doc(\"Therapy Session\", {\n\t\t\t    \"therapy_plan\": frm.doc.name,\n\t\t\t\t\"patient\": frm.doc.patient,\n\t\t\t});\n\t\t}, __(\"Create\"));\n\t}\n});",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Therapy Session",
+  "enabled": 1,
+  "modified": "2024-06-18 10:11:31.457816",
+  "module": "Swissmedhealth",
+  "name": "Calendar View",
+  "script": "frappe.views.calendar[\"Therapy Session\"] = {\n\tfield_map: {\n\t\t\"status\": \"Draft\",\n        \"id\": \"name\",\n        \"title\": \"patient\",\n        \"start\": \"start\",\n        \"end\": \"end\",  // Make sure you have an end_date if needed\n        // \"allDay\": \"all_day\", // Optional, if you are using all-day events\n        \"therapy_plan\": \"therapy_plan\",\n        \"eventColor\": \"color\"\n\t},\n\torder_by: \"start_date\",\n\tgantt: true,\n\tget_events_method: \"swissmedhealth.public.therapy_session.get_events\"\n};\n",
+  "view": "List"
  }
 ]
