@@ -259,6 +259,9 @@ fixtures = [{
 # ]
 
 
+
+
+
 # override_whitelisted_methods = {
 #   "frappe-bench.apps.healthcare.healthcare.doctype.therapy_plan.therapy_plan.js": "swissmedhealth.public.js.custom_therapy_plan.js"
 # }
