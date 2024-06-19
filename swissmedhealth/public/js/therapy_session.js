@@ -68,7 +68,7 @@ frappe.ui.form.on('Therapy Session', {
         if(frm.doc.therapy_type) {
             // Fetch room numbers based on selected therapy types
             frappe.call({
-                method: 'swissmedhealth.public.therapy_session.get_total_beds_by_therapy_types11',
+                method: 'swissmedhealth.public.therapy_session.get_total_beds_by_therapy_types',
                 args: {
                     therapy_type_ids: frm.doc.therapy_type
                 },

@@ -97,7 +97,7 @@ def get_total_chair_by_therapy_types(therapy_type_ids):
     return sessions_rooms
 
 @frappe.whitelist()
-def get_total_beds_by_therapy_types11(therapy_type_ids):
+def get_total_beds_by_therapy_types(therapy_type_ids):
     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
     if not therapy_type_ids:
         return []
