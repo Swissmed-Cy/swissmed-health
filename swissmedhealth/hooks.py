@@ -33,7 +33,8 @@ doctype_js = {
     "Customer": "public/js/customer.js",
     "Lead": "public/js/lead.js",
     "CRM Activities": "public/js/crm_activities.js",
-    "Therapy Session": "public/js/therapy_session.js"
+    "Therapy Session": "public/js/therapy_session.js",
+    "Therapy Session": "public/custom_therapy_session.js"
 
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -137,7 +138,14 @@ doc_events = {
     "Customer": {
         "before_insert": "swissmedhealth.swissmedhealth.hooks.customer.before_insert",
     },
+    "Therapy Session": {
+        "before_save": "swissmedhealth.public.therapy_session.calculate_end_date",
+    },
+    # "Therapy Session": {
+    #     "before_save": "swissmedhealth.public.therapy_session.validate_existing_session",
+    # },
 }
+
 
 # Scheduled Tasks
 # ---------------
