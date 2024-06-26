@@ -34,10 +34,11 @@ doctype_js = {
     "Lead": "public/js/lead.js",
     "CRM Activities": "public/js/crm_activities.js",
     "Therapy Session": "public/js/therapy_session.js",
-    "Therapy Session": "public/custom_therapy_session.js"
+    "Therapy Session": "public/js/custom_therapy_session.js",
+    "Quotation": "public/js/custom_sale_quotation.js"
 
 }
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+# doctype_list_js = {"Therapy Session" : "public/js/custom_therapy_session.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 doctype_calendar_js = {"Patient Appointment" : "public/js/patient_appointment_calendar.js"}
 doctype_calendar_js = {"Therapy Session" : "public/js/therapy_session_calendar.js"}
@@ -141,9 +142,6 @@ doc_events = {
     "Therapy Session": {
         "before_save": "swissmedhealth.public.therapy_session.calculate_end_date",
     },
-    # "Therapy Session": {
-    #     "before_save": "swissmedhealth.public.therapy_session.validate_existing_session",
-    # },
 }
 
 
@@ -240,9 +238,32 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select", "Merge Invoice", "Fetch Healthcare Practitioner in therapy session from therapy plan"] ]
             }
-        },
+    },
+    {
+    "doctype": "Workspace",
+        "filters": [
+            [
+                "name", "in", [
+                    "Healthcare"
+                ]
+            ]
+        ]
+    },
+    {
+    "doctype": "Workflow",
+        "filters": [
+            [
+                "name", "in", [
+                    "Workflow therapy session"
+                ]
+            ]
+        ]
+    },
+    {
+    "doctype": "Workflow State",
+    }
     ]
 
 
@@ -253,18 +274,18 @@ fixtures = [{
 #     {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
 # ]
 
-fixtures = [
-    {
-        "doctype": "Workspace",
-        "filters": [
-            [
-                "name", "in", [
-                    "Healthcare"
-                ]
-            ]
-        ]
-    }
-]
+# fixtures = [
+#     {
+#         "doctype": "Workspace",
+#         "filters": [
+#             [
+#                 "name", "in", [
+#                     "Healthcare"
+#                 ]
+#             ]
+#         ]
+#     }
+# ]
 
 
 

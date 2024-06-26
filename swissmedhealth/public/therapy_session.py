@@ -21,6 +21,7 @@ from frappe.utils import (
     time_diff_in_hours,
     time_diff_in_seconds,
 )
+from datetime import datetime, timedelta
 
 
 @frappe.whitelist()
@@ -41,6 +42,7 @@ def get_events(start, end, filters=None):
         select
         `tabTherapy Session`.name, `tabTherapy Session`.patient,
         `tabTherapy Session`.practitioner,
+        `tabTherapy Session`.therapy_type,
         `tabTherapy Session`.duration,
         timestamp(`tabTherapy Session`.start_date, `tabTherapy Session`.start_time) as 'start'
         from
@@ -55,9 +57,13 @@ def get_events(start, end, filters=None):
         update={"allDay": 0},
     )
 
+    print ("\n data :::::::::::::", data)
     for item in data:
-        item.end = item.start + datetime.timedelta(minutes=item.duration)
-
+        item.end = item.start + timedelta(minutes=item.duration)  # Use timedelta correctly
+        item.patient = item.patient + \
+        '\n Start Time: ' + str(item.start) + \
+        '\n Therapy PLAN: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
+        '\n Therapy Type:' + str(item.therapy_type)
     return data
 
 @frappe.whitelist()
