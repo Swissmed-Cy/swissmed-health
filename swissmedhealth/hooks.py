@@ -36,7 +36,6 @@ doctype_js = {
     "Therapy Session": "public/js/therapy_session.js",
     "Therapy Session": "public/js/custom_therapy_session.js",
     "Quotation": "public/js/custom_sale_quotation.js"
-
 }
 # doctype_list_js = {"Therapy Session" : "public/js/custom_therapy_session.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -125,6 +124,7 @@ after_migrate = [
 
 override_doctype_class = {
     "Lead": "swissmedhealth.swissmedhealth.hooks.lead.Lead"
+    # "Therapy Session": "swissmedhealth.swissmedhealth.hooks.CTherapySession.CTherapySession"
 }
 
 # Document Events
@@ -238,7 +238,7 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select", "Merge Invoice", "Fetch Healthcare Practitioner in therapy session from therapy plan"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select", "Merge Invoice", "Fetch Healthcare Practitioner in therapy session from therapy plan", "Button Quotaion form - Create Therapy Plan"] ]
             }
     },
     {

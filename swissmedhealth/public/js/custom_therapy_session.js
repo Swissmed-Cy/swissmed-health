@@ -1,5 +1,5 @@
 // frappe.ui.form.on('Therapy Session', {
-//     before_submit: function(frm) {
+//     refresh: function(frm) {
 //         console.log("Testttttttttttttttttttttttt", frm.doc.custom_total_chairs)
 //         // Ensure all required fields are filled
 //         if (frm.doc.custom_total_chairs && frm.doc.practitioner && frm.doc.start_date && frm.doc.start_time && frm.doc.duration) {
@@ -55,7 +55,7 @@
 //                                 } else {
 //                                     // If no conflicts, proceed to update the chair status to "Booked"
 //                                     frappe.call({
-//                                         method: "frappe.client.set_value",
+//                                         method: "frappe.client.get_list",
 //                                         args: {
 //                                             doctype: "Total Child Chair", // Ensure this is the correct doctype for chairs
 //                                             name: frm.doc.custom_total_chairs,
@@ -88,28 +88,27 @@
 // });
 
 
-// frappe.ui.form.on('Therapy Session', {
-//     before_submit: function(frm,session_name, start_datetime, custom_end_date, practitioner) {
-//         console.log("::::::::::::::::::::tststs::::::::::::::::::");
-//         // Check if there are overlapping sessions for the same practitioner
-//         frappe.call({
-//             method: "validate_existing_session",
-//             args: {
-//                 session_name: frm.doc.name,
-//                 start_datetime: frm.doc.start_date + ' ' + frm.doc.start_time,
-//                 custom_end_date: frm.doc.custom_end_date,
-//                 practitioner: frm.doc.practitioner
-//             },
-//             callback: function(r) {
-//                 if (r.message) {
-//                     frappe.msgprint(__('The selected practitioner is already booked for this time slot. Please choose another time slot.'));
-//                     frappe.validated = false;
-//                 } else {
-//                     frappe.validated = true;
-//                     frm.save(); // Save the form manually to proceed with submission
-//                 }
-//             }
-//         });
-//     }
-// });
-
+// // frappe.ui.form.on('Therapy Session', {
+// //     before_submit: function(frm,session_name, start_datetime, custom_end_date, practitioner) {
+// //         console.log("::::::::::::::::::::tststs::::::::::::::::::");
+// //         // Check if there are overlapping sessions for the same practitioner
+// //         frappe.call({
+// //             method: "validate_existing_session",
+// //             args: {
+// //                 session_name: frm.doc.name,
+// //                 start_datetime: frm.doc.start_date + ' ' + frm.doc.start_time,
+// //                 custom_end_date: frm.doc.custom_end_date,
+// //                 practitioner: frm.doc.practitioner
+// //             },
+// //             callback: function(r) {
+// //                 if (r.message) {
+// //                     frappe.msgprint(__('The selected practitioner is already booked for this time slot. Please choose another time slot.'));
+// //                     frappe.validated = false;
+// //                 } else {
+// //                     frappe.validated = true;
+// //                     frm.save(); // Save the form manually to proceed with submission
+// //                 }
+// //             }
+// //         });
+// //     }
+// // });

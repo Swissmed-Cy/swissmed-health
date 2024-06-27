@@ -10,7 +10,7 @@ def create_therapy_plan(quotation_name):
     therapy_plan = frappe.new_doc('Therapy Plan')
     
     # Map fields from Sales Quotation to Therapy Plan
-    therapy_plan.patient = quotation.party_name
+    therapy_plan.patient = quotation.customer_name
     therapy_plan.start_date = quotation.transaction_date
     # therapy_plan.quotation = quotation_name
     

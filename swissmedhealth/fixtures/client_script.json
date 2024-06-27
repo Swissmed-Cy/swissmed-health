@@ -53,5 +53,16 @@
   "name": "Fetch Healthcare Practitioner in therapy session from therapy plan",
   "script": "frappe.ui.form.on('Therapy Session', {\n\ttherapy_type: function(frm) {\n\t\tif (frm.doc.therapy_type) {\n\t\t\tfrappe.call({\n\t\t\t\t'method': 'frappe.client.get',\n\t\t\t\targs: {\n\t\t\t\t\tdoctype: 'Therapy Type',\n\t\t\t\t\tname: frm.doc.therapy_type\n\t\t\t\t},\n\t\t\t\tcallback: function(data) {\n\t\t\t\t\tfrm.set_value('practitioner', data.message.custom_healthcare_practitioner);\n\t\t\t\t}\n\t\t\t});\n\t\t} \n\t\telse {\n\t\t\tfrm.refresh_field(\"codification_table\");\n\t\t}\n\t}\n})",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2024-06-27 07:17:16.026565",
+  "module": "Swissmedhealth",
+  "name": "Button Quotaion form - Create Therapy Plan",
+  "script": "frappe.ui.form.on('Quotation', {\n    refresh: function(frm) {\n        if (!frm.doc.__islocal && frm.doc.docstatus === 1) {\n            frm.add_custom_button(__('Create Therapy Plan'), function() {\n                create_therapy_plan(frm);\n            }, __('Create')); // Adding under 'Actions' instead of 'Create'\n        }\n    }\n});\n\nfunction create_therapy_plan(frm) {\n    frappe.call({\n        method: 'swissmedhealth.swissmedhealth.hooks.quotation.create_therapy_plan',\n        args: {\n            quotation_name: frm.doc.name\n        },\n        callback: function(r) {\n            if (!r.exc) {\n                frappe.msgprint(__('Therapy Plan created successfully'));\n                frappe.set_route('Form', 'Therapy Plan', r.message);\n            }\n        }\n    });\n}\n",
+  "view": "Form"
  }
 ]
