@@ -37,6 +37,20 @@ def get_events(start, end, filters=None):
 
     conditions = get_event_conditions("Therapy Session", filters)
 
+    # status_color_map = {
+    #     "Draft": "#0000FF",    # Blue
+    #     "Submitted": "#00FF00", # Green
+    #     "Cancelled": "FF0000"  # Red
+    # }
+    #Initialize conditions
+    # conditions = "1=1"
+    # if filters:
+    #     filters = json.loads(filters)
+    #     if filters.get("docstatus"):
+    #         conditions += f" AND `tabTherapy Session`.docstatus = '{filters['document_status']}'"
+
+
+    
     data = frappe.db.sql(
         """
         select
@@ -56,14 +70,41 @@ def get_events(start, end, filters=None):
         as_dict=True,
         update={"allDay": 0},
     )
+    
+    for session in data:
+        session['total_child_rooms'] = frappe.db.sql(
+            """
+            select
+                name1 
+            from
+                `tabTotal child rooms`
+            where
+                parent = %s
+            """,
+            session['name'],
+            as_dict=True
+        )
+  
+    print ("\n data ::::Before:::::::::", data)
 
-    print ("\n data :::::::::::::", data)
+    #Map the status to colors
+    # for session in data:
+    #     session['color'] = status_color_map.get(session.get('docstatus'), "#0000FF")  # Default color if status not in map
+    
     for item in data:
-        item.end = item.start + timedelta(minutes=item.duration)  # Use timedelta correctly
-        item.patient = item.patient + \
+        print (" item custom room no :::::",item)
+        room_numbers = [i.get('name1') for i in item.get('total_child_rooms', []) if i and i.get('name1')]
+        if room_numbers:
+            room_numbers = ','.join(room_numbers)
+        else:
+            room_numbers = ''
+        item.update({'end': item.start + timedelta(minutes=item.duration)})  # Use timedelta correctly
+        item.update({'patient': item.patient + \
         '\n Start Time: ' + str(item.start) + \
-        '\n Therapy PLAN: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
-        '\n Therapy Type:' + str(item.therapy_type)
+        '\n Therapy Appointment ID: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
+        '\n Therapy Type:' + str(item.therapy_type) + \
+        '\n Room Number:' + str(room_numbers)})
+    print ("\n data ::::After:::::::::", data)
     return data
 
 @frappe.whitelist()
@@ -141,32 +182,3 @@ def calculate_end_date(doc, method):
             frappe.throw(_("Invalid date/time format. Please enter a valid start date and time."))
     else:
         frappe.throw(_("Please ensure start date, start time, and duration are provided."))
-
-# @frappe.whitelist()
-# def validate_existing_session(session_name, start_datetime, custom_end_date, practitioner):
-#     try:
-#         # Convert string datetime to Python datetime objects
-#         start_datetime = frappe.utils.data.parse_datetime(start_datetime)
-#         custom_end_date = frappe.utils.data.parse_datetime(custom_end_date)
-
-#         # Check if there are overlapping sessions for the same practitioner
-#         overlapping_sessions = frappe.db.sql("""
-#             SELECT name
-#             FROM `tabTherapy Session`
-#             WHERE practitioner = %s
-#             AND (
-#                 (%s BETWEEN start_datetime AND custom_end_date)
-#                 OR (%s BETWEEN start_datetime AND custom_end_date)
-#                 OR (start_datetime BETWEEN %s AND %s)
-#             )
-#             AND name != %s
-#         """, (practitioner, start_datetime, custom_end_date, start_datetime, custom_end_date, session_name))
-
-#         if overlapping_sessions:
-#             return True  # There are overlapping sessions
-#         else:
-#             return False  # No overlapping sessions
-
-#     except Exception as e:
-#         frappe.log_error(f"Error in validate_existing_session: {e}", _("Validation Error"))
-#         return True  # Return True to prevent submission in case of error

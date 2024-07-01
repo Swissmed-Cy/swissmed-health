@@ -64,5 +64,16 @@
   "name": "Button Quotaion form - Create Therapy Plan",
   "script": "frappe.ui.form.on('Quotation', {\n    refresh: function(frm) {\n        if (!frm.doc.__islocal && frm.doc.docstatus === 1) {\n            frm.add_custom_button(__('Create Therapy Plan'), function() {\n                create_therapy_plan(frm);\n            }, __('Create')); // Adding under 'Actions' instead of 'Create'\n        }\n    }\n});\n\nfunction create_therapy_plan(frm) {\n    frappe.call({\n        method: 'swissmedhealth.swissmedhealth.hooks.quotation.create_therapy_plan',\n        args: {\n            quotation_name: frm.doc.name\n        },\n        callback: function(r) {\n            if (!r.exc) {\n                frappe.msgprint(__('Therapy Plan created successfully'));\n                frappe.set_route('Form', 'Therapy Plan', r.message);\n            }\n        }\n    });\n}\n",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Opportunity",
+  "enabled": 1,
+  "modified": "2024-07-01 06:50:46.595411",
+  "module": null,
+  "name": "Fetching item prices in Opportunity",
+  "script": "frappe.ui.form.on('Opportunity Item', {\n    item_code: function(frm, cdt, cdn) {\n        var item = frappe.get_doc(cdt, cdn);\n        var price_list = frm.doc.price_list; // Get the selected price list from the Opportunity DocType\n        var item_code = item.item_code;\n\n        frappe.call({\n            method: 'frappe.client.get_value',\n            args: {\n                doctype: 'Item Price',\n                filters: {\n                    item_code: item_code,\n                    price_list: price_list\n                },\n                fieldname: 'price_list_rate'\n            },\n            callback: function(response) {\n                if (response && response.message) {\n                    frappe.model.set_value(cdt, cdn, 'rate', response.message.price_list_rate);\n                }\n            }\n        });\n    }\n});",
+  "view": "Form"
  }
 ]

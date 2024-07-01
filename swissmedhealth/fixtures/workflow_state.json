@@ -52,5 +52,14 @@
   "name": "Scheduled",
   "style": "Primary",
   "workflow_state_name": "Scheduled"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-06-28 13:19:18.655310",
+  "name": "Submitted",
+  "style": "",
+  "workflow_state_name": "Submitted"
  }
 ]

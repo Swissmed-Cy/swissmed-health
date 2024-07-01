@@ -123,8 +123,8 @@ after_migrate = [
 # Override standard doctype classes
 
 override_doctype_class = {
-    "Lead": "swissmedhealth.swissmedhealth.hooks.lead.Lead"
-    # "Therapy Session": "swissmedhealth.swissmedhealth.hooks.CTherapySession.CTherapySession"
+    "Lead": "swissmedhealth.swissmedhealth.hooks.lead.Lead",
+    "Therapy Session": "swissmedhealth.swissmedhealth.hooks.CTherapySession.CTherapySession"
 }
 
 # Document Events
@@ -142,6 +142,9 @@ doc_events = {
     "Therapy Session": {
         "before_save": "swissmedhealth.public.therapy_session.calculate_end_date",
     },
+    # "Therapy Session": {
+    #     "on_submit": "swissmedhealth.public.therapy_session.validate_double_booking",
+    # },
 }
 
 
@@ -238,7 +241,7 @@ doc_events = {
 fixtures = [{
     "doctype": "Client Script",
         "filters": {
-            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select", "Merge Invoice", "Fetch Healthcare Practitioner in therapy session from therapy plan", "Button Quotaion form - Create Therapy Plan"] ]
+            "name": [ "in", ["Custom Buttion Therapy Plan", "Calendar View", "Script room and chair multi select", "Merge Invoice", "Fetch Healthcare Practitioner in therapy session from therapy plan", "Button Quotaion form - Create Therapy Plan", "Fetching item prices in Opportunity"] ]
             }
     },
     {
@@ -250,20 +253,20 @@ fixtures = [{
                 ]
             ]
         ]
-    },
-    {
-    "doctype": "Workflow",
-        "filters": [
-            [
-                "name", "in", [
-                    "Workflow therapy session"
-                ]
-            ]
-        ]
-    },
-    {
-    "doctype": "Workflow State",
     }
+    # {
+    # "doctype": "Workflow",
+    #     "filters": [
+    #         [
+    #             "name", "in", [
+    #                 "Workflow therapy session"
+    #             ]
+    #         ]
+    #     ]
+    # },
+    # {
+    # "doctype": "Workflow State",
+    # }
     ]
 
 
