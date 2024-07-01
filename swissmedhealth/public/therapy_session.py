@@ -37,19 +37,11 @@ def get_events(start, end, filters=None):
 
     conditions = get_event_conditions("Therapy Session", filters)
 
-    # status_color_map = {
-    #     "Draft": "#0000FF",    # Blue
-    #     "Submitted": "#00FF00", # Green
-    #     "Cancelled": "FF0000"  # Red
-    # }
-    #Initialize conditions
-    # conditions = "1=1"
-    # if filters:
-    #     filters = json.loads(filters)
-    #     if filters.get("docstatus"):
-    #         conditions += f" AND `tabTherapy Session`.docstatus = '{filters['document_status']}'"
-
-
+    status_color_map = {
+        "Draft": "#FFCCCC",    # Blue
+        "Submitted": "#00FF00", # Green
+        "Cancelled": "FF0000"  # Red
+    }
     
     data = frappe.db.sql(
         """
@@ -58,6 +50,7 @@ def get_events(start, end, filters=None):
         `tabTherapy Session`.practitioner,
         `tabTherapy Session`.therapy_type,
         `tabTherapy Session`.duration,
+        `tabTherapy Session`.docstatus,
         timestamp(`tabTherapy Session`.start_date, `tabTherapy Session`.start_time) as 'start'
         from
         `tabTherapy Session`
@@ -86,11 +79,7 @@ def get_events(start, end, filters=None):
         )
   
     print ("\n data ::::Before:::::::::", data)
-
-    #Map the status to colors
-    # for session in data:
-    #     session['color'] = status_color_map.get(session.get('docstatus'), "#0000FF")  # Default color if status not in map
-    
+   
     for item in data:
         print (" item custom room no :::::",item)
         room_numbers = [i.get('name1') for i in item.get('total_child_rooms', []) if i and i.get('name1')]
@@ -98,12 +87,24 @@ def get_events(start, end, filters=None):
             room_numbers = ','.join(room_numbers)
         else:
             room_numbers = ''
-        item.update({'end': item.start + timedelta(minutes=item.duration)})  # Use timedelta correctly
-        item.update({'patient': item.patient + \
-        '\n Start Time: ' + str(item.start) + \
-        '\n Therapy Appointment ID: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
-        '\n Therapy Type:' + str(item.therapy_type) + \
-        '\n Room Number:' + str(room_numbers)})
+        status = 'Draft'
+        if item.docstatus == 1:
+            status = 'Submitted'
+        color = status_color_map.get(status, "#0000FF")
+        # if item.docstatus == 2:
+        #     status = 'Cancelled'
+        item.update({
+            'end': item.start + timedelta(minutes=item.duration),
+            'color': color
+        })  # Use timedelta correctly
+        item.update({
+            'patient': item.patient + \
+                '\n Start Time: ' + str(item.start) + \
+                '\n Therapy Appointment ID: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
+                '\n Therapy Type:' + str(item.therapy_type) + \
+                '\n Status:' + str(status) + \
+                '\n Room Number:' + str(room_numbers)
+        })
     print ("\n data ::::After:::::::::", data)
     return data
 
