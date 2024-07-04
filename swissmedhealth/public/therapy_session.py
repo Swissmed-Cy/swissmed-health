@@ -163,23 +163,110 @@ def get_total_beds_by_therapy_types(therapy_type_ids):
     return sessions_rooms
 
 @frappe.whitelist()
-def calculate_end_date(doc, method):
-    if doc.start_date and doc.start_time and doc.duration:
-        try:
-            # Combine date and time into a single datetime object
-            start_datetime_str = f"{doc.start_date} {doc.start_time}"
-            start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d %H:%M:%S")
+def get_practitioner_from_therapy_types(therapy_type_ids):
+    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+    if not therapy_type_ids:
+        return []
 
-            # Convert duration to minutes
-            duration_minutes = float(doc.duration)
+    # Convert the comma-separated string of IDs into a list
+    therapy_type_ids = therapy_type_ids.split(',')
+    total_staff = frappe.db.get_all('practitioner',
+                                     filters={'parent': ['in', therapy_type_ids]},
+                                     fields=['name1'])
+    print(":::::::::practitioner:::::::::::::::",total_staff)
 
-            # Calculate the end datetime by adding the duration to the start datetime
-            end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+    sessions_staff = []
+    for staff in total_staff:
+        sessions_staff.append(staff.get('name1'))
+        print("::::sessions_staff::::::", sessions_staff)
+    return sessions_staff
 
-            # Set the calculated end_datetime to the custom_end_date field
-            doc.custom_end_date = end_datetime
+# @frappe.whitelist()
+# def calculate_end_date(doc, method):
+#     if doc.start_date and doc.start_time and doc.duration:
+#         try:
+#             # Combine date and time into a single datetime object
+#             start_datetime_str = f"{doc.start_date} {doc.start_time}"
+#             start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d %H:%M:%S")
 
-        except ValueError as e:
-            frappe.throw(_("Invalid date/time format. Please enter a valid start date and time."))
-    else:
-        frappe.throw(_("Please ensure start date, start time, and duration are provided."))
+#             # Convert duration to minutes
+#             duration_minutes = float(doc.duration)
+
+#             # Calculate the end datetime by adding the duration to the start datetime
+#             end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+
+#             # Set the calculated end_datetime to the custom_end_date field
+#             doc.custom_end_date = end_datetime
+
+#         except ValueError as e:
+#             frappe.throw(_("Invalid date/time format. Please enter a valid start date and time."))
+#     else:
+#         frappe.throw(_("Please ensure start date, start time, and duration are provided."))
+
+
+# import datetime
+# import frappe
+# from frappe.utils import getdate, get_time, flt
+
+# @frappe.whitelist()
+# def get_available_practitioners(start_date, start_time, duration):
+#     # Calculate the end time of the session
+#     # start_datetime = datetime.datetime.combine(getdate(start_date), get_time(start_time))
+#     # end_datetime = start_datetime + datetime.timedelta(minutes=flt(duration))
+
+#     booked_sessions = frappe.db.sql(
+#     """SELECT name FROM `tabTherapy Session` WHERE docstatus = 0""",
+#     as_dict=True
+#     )
+#     print ("\n booked_sessions ::::::::::::", booked_sessions)
+
+#     # Fetch booked practitioners for the given time range
+#     booked_practitioners = frappe.db.sql(
+#         """
+#         SELECT name1 as name, parent          
+#         FROM `tabpractitioner`          
+#         WHERE  parent in (SELECT name FROM `tabTherapy Session` where docstatus = 0)
+#         -- AND start_date = %s
+#         -- AND (
+#         --     (start_time < %s AND ADDTIME(start_time, SEC_TO_TIME(duration * 60)) > %s) 
+#         --     OR 
+#         --     (start_time >= %s AND start_time < %s)
+#         -- )
+#         """,
+#         # (start_date, start_time, start_time, start_time, end_datetime.time()),
+#         as_dict=True
+#     )
+#     print ("\n booked_practitioners :::::111:::::::", booked_practitioners)
+#     # Convert booked practitioners to a set of names
+#     booked_practitioner_names = [practitioner['name'] for practitioner in booked_practitioners]
+#     print ("\n booked_practitioner_names ::::::::::::", booked_practitioner_names)
+#     # Query to find available practitioners
+#     available_practitioners = []
+#     if booked_practitioner_names:
+#         placeholders = ', '.join(['%s'] * len(booked_practitioner_names))
+#         query = f"""
+#             SELECT name
+#             FROM `tabHealthcare Practitioner`
+#             WHERE name NOT IN ({placeholders})
+#         """
+#         available_practitioners = frappe.db.sql(
+#             query,
+#             tuple(booked_practitioner_names),
+#             as_dict=True
+#         )
+#         print("\n available_practitioners ::::::::::", available_practitioners)
+#     else:
+#         available_practitioners = frappe.db.sql(
+#             """
+#             SELECT name
+#             FROM `tabHealthcare Practitioner`
+#             """,
+#             as_dict=True
+#         )
+#     print ("\n available_practitioners ::::::::::::", available_practitioners)
+
+#     available_practitioners_names = [i['name'] for i in available_practitioners if i.get('name')]
+#     available_practitioners_names = set(available_practitioners_names)
+#     print("\n available_practitioners_names ::::::111111::::::", available_practitioners_names)
+
+#     return list(available_practitioners_names)

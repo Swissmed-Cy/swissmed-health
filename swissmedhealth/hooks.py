@@ -139,9 +139,9 @@ doc_events = {
     "Customer": {
         "before_insert": "swissmedhealth.swissmedhealth.hooks.customer.before_insert",
     },
-    "Therapy Session": {
-        "before_save": "swissmedhealth.public.therapy_session.calculate_end_date",
-    },
+    # "Therapy Session": {
+    #     "before_save": "swissmedhealth.public.therapy_session.calculate_end_date",
+    # },
     # "Therapy Session": {
     #     "on_submit": "swissmedhealth.public.therapy_session.validate_double_booking",
     # },

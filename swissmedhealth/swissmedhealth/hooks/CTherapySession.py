@@ -227,7 +227,7 @@ class CTherapySession(OriginalTherapySession):
 	        
 	        # Prepare error message if overlapping sessions found
 	        if overlapping_details:
-	            overlapping_details_message = _("Therapy Session overlaps with the following sessions: {0}. Please choose another chair.").format(", ".join(overlapping_details))
+	            overlapping_details_message = _("Therapy Session overlaps with the following sessions: {0}. Please choose another time or chair.").format(", ".join(overlapping_details))
 	            frappe.throw(overlapping_details_message, title=_("Therapy Sessions Overlapping"))
 	    
 	    # Additional check to ensure the same practitioner cannot book multiple sessions in the same time slot
