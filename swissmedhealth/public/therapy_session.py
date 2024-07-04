@@ -170,7 +170,7 @@ def get_practitioner_from_therapy_types(therapy_type_ids):
 
     # Convert the comma-separated string of IDs into a list
     therapy_type_ids = therapy_type_ids.split(',')
-    total_staff = frappe.db.get_all('practitioner',
+    total_staff = frappe.db.get_all('Practitioner',
                                      filters={'parent': ['in', therapy_type_ids]},
                                      fields=['name1'])
     print(":::::::::practitioner:::::::::::::::",total_staff)
