@@ -51,6 +51,7 @@ def get_events(start, end, filters=None):
         `tabTherapy Session`.therapy_type,
         `tabTherapy Session`.duration,
         `tabTherapy Session`.docstatus,
+        `tabTherapy Session`.start_time as start_time,
         timestamp(`tabTherapy Session`.start_date, `tabTherapy Session`.start_time) as 'start'
         from
         `tabTherapy Session`
@@ -99,10 +100,9 @@ def get_events(start, end, filters=None):
         })  # Use timedelta correctly
         item.update({
             'patient': item.patient + \
-                '\n Start Time: ' + str(item.start) + \
-                '\n Therapy Appointment ID: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
-                '\n Therapy Type:' + str(item.therapy_type) + \
-                '\n Status:' + str(status) + \
+                '\n Start Time: ' + str(item.start_time) + \
+                '\n Practitioner:' + str(item.practitioner) + \
+                '\n Type:' + str(item.therapy_type) + \
                 '\n Room Number:' + str(room_numbers)
         })
     print ("\n data ::::After:::::::::", data)
