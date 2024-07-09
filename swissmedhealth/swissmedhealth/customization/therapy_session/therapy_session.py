@@ -4,6 +4,8 @@ from frappe import _
 
 @frappe.whitelist()
 def get_filterted_data(doctype, txt, searchfield, start, page_len, filters):
+    if not filters.get("date") or not filters.get("therapy_type"):
+        frappe.throw(_("Please mention mandatory fields first"))
     data = frappe.db.sql(
     f"""
         SELECT DISTINCT tcc.{filters.get("field")} AS name
@@ -32,7 +34,7 @@ def get_filterted_data(doctype, txt, searchfield, start, page_len, filters):
     return_data = frappe.db.sql(
         f"""
             SELECT
-                DISTINCT {filters.get("field")} as name
+                DISTINCT {filters.get("field")} as name, {filters.get("field")}
             FROM
                 `{filters.get("doc")}`
             WHERE 
@@ -41,8 +43,9 @@ def get_filterted_data(doctype, txt, searchfield, start, page_len, filters):
             ORDER BY
                 {filters.get("field")}
         """)
-    
+    # frappe.throw(str(return_data))
     return return_data
+
 
 @frappe.whitelist()
 def get_filterted_rooms(doctype, txt, searchfield, start, page_len, filters):
