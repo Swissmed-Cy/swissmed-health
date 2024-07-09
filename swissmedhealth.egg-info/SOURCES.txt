@@ -38,6 +38,8 @@ swissmedhealth/swissmedhealth/custom/therapy_plan.json
 swissmedhealth/swissmedhealth/custom/therapy_plan_detail.json
 swissmedhealth/swissmedhealth/custom/therapy_session.json
 swissmedhealth/swissmedhealth/custom/therapy_type.json
+swissmedhealth/swissmedhealth/customization/therapy_session/therapy_session.py
+swissmedhealth/swissmedhealth/customization/therapy_type/therapy_type.py
 swissmedhealth/swissmedhealth/doctype/__init__.py
 swissmedhealth/swissmedhealth/doctype/customer_consent/__init__.py
 swissmedhealth/swissmedhealth/doctype/customer_consent/customer_consent.js
@@ -69,6 +71,9 @@ swissmedhealth/swissmedhealth/doctype/patient_treatment_plan/patient_treatment_p
 swissmedhealth/swissmedhealth/doctype/patient_treatment_plan/patient_treatment_plan.json
 swissmedhealth/swissmedhealth/doctype/patient_treatment_plan/patient_treatment_plan.py
 swissmedhealth/swissmedhealth/doctype/patient_treatment_plan/test_patient_treatment_plan.py
+swissmedhealth/swissmedhealth/doctype/practitioner/__init__.py
+swissmedhealth/swissmedhealth/doctype/practitioner/practitioner.json
+swissmedhealth/swissmedhealth/doctype/practitioner/practitioner.py
 swissmedhealth/swissmedhealth/doctype/room_number/__init__.py
 swissmedhealth/swissmedhealth/doctype/room_number/room_number.js
 swissmedhealth/swissmedhealth/doctype/room_number/room_number.json

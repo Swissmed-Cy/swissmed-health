@@ -51,6 +51,7 @@ def get_events(start, end, filters=None):
         `tabTherapy Session`.therapy_type,
         `tabTherapy Session`.duration,
         `tabTherapy Session`.docstatus,
+        `tabTherapy Session`.start_time as start_time,
         timestamp(`tabTherapy Session`.start_date, `tabTherapy Session`.start_time) as 'start'
         from
         `tabTherapy Session`
@@ -77,6 +78,19 @@ def get_events(start, end, filters=None):
             session['name'],
             as_dict=True
         )
+    for session in data:
+        session['practitioner'] = frappe.db.sql(
+            """
+            select
+                name1 
+            from
+                `tabPractitioner`
+            where
+                parent = %s
+            """,
+            session['name'],
+            as_dict=True
+        )
   
     print ("\n data ::::Before:::::::::", data)
    
@@ -91,6 +105,13 @@ def get_events(start, end, filters=None):
         if item.docstatus == 1:
             status = 'Submitted'
         color = status_color_map.get(status, "#0000FF")
+
+        practitioner = [i.get('name1') for i in item.get('practitioner', []) if i and i.get('name1')]
+        if practitioner:
+            practitioner = ','.join(practitioner)
+        else:
+            practitioner = ''
+
         # if item.docstatus == 2:
         #     status = 'Cancelled'
         item.update({
@@ -99,87 +120,86 @@ def get_events(start, end, filters=None):
         })  # Use timedelta correctly
         item.update({
             'patient': item.patient + \
-                '\n Start Time: ' + str(item.start) + \
-                '\n Therapy Appointment ID: ' + item.name + '\n Practitioner:' + str(item.practitioner) + \
-                '\n Therapy Type:' + str(item.therapy_type) + \
-                '\n Status:' + str(status) + \
+                '\n Start Time: ' + str(item.start_time) + \
+                '\n Practitioner:' + str(practitioner) + \
+                '\n Type:' + str(item.therapy_type) + \
                 '\n Room Number:' + str(room_numbers)
         })
     print ("\n data ::::After:::::::::", data)
     return data
 
-@frappe.whitelist()
-def get_room_numbers_by_therapy_types(therapy_type_ids):
-    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
-    if not therapy_type_ids:
-        return []
+# @frappe.whitelist()
+# def get_room_numbers_by_therapy_types(therapy_type_ids):
+#     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+#     if not therapy_type_ids:
+#         return []
 
-    # Convert the comma-separated string of IDs into a list
-    therapy_type_ids = therapy_type_ids.split(',')
-    room_numbers = frappe.db.get_all('Total child rooms',
-                                     filters={'parent': ['in', therapy_type_ids]},
-                                     fields=['name1'])
-    print(":::::::::room_numbers:::::::::::::::",room_numbers)
+#     # Convert the comma-separated string of IDs into a list
+#     therapy_type_ids = therapy_type_ids.split(',')
+#     room_numbers = frappe.db.get_all('Total child rooms',
+#                                      filters={'parent': ['in', therapy_type_ids]},
+#                                      fields=['name1'])
+#     print(":::::::::room_numbers:::::::::::::::",room_numbers)
 
-    sessions_rooms = []
-    for room in room_numbers:
-        sessions_rooms.append(room.get('name1'))
-    return sessions_rooms
+#     sessions_rooms = []
+#     for room in room_numbers:
+#         sessions_rooms.append(room.get('name1'))
+#     return sessions_rooms
 
-@frappe.whitelist()
-def get_total_chair_by_therapy_types(therapy_type_ids):
-    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
-    if not therapy_type_ids:
-        return []
+# @frappe.whitelist()
+# def get_total_chair_by_therapy_types(therapy_type_ids):
+#     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+#     if not therapy_type_ids:
+#         return []
 
-    # Convert the comma-separated string of IDs into a list
-    therapy_type_ids = therapy_type_ids.split(',')
-    total_chair = frappe.db.get_all('Total Child Chair',
-                                     filters={'parent': ['in', therapy_type_ids]},
-                                     fields=['name1'])
-    print(":::::::::total_chair:::::::::::::::",total_chair)
+#     # Convert the comma-separated string of IDs into a list
+#     therapy_type_ids = therapy_type_ids.split(',')
+#     total_chair = frappe.db.get_all('Total Child Chair',
+#                                      filters={'parent': ['in', therapy_type_ids]},
+#                                      fields=['name1'])
+#     print(":::::::::total_chair:::::::::::::::",total_chair)
 
-    sessions_rooms = []
-    for chair in total_chair:
-        sessions_rooms.append(chair.get('name1'))
-    return sessions_rooms
+#     sessions_rooms = []
+#     for chair in total_chair:
+#         sessions_rooms.append(chair.get('name1'))
+#     return sessions_rooms
 
-@frappe.whitelist()
-def get_total_beds_by_therapy_types(therapy_type_ids):
-    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
-    if not therapy_type_ids:
-        return []
+# @frappe.whitelist()
+# def get_total_beds_by_therapy_types(therapy_type_ids):
+#     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+#     if not therapy_type_ids:
+#         return []
 
-    # Convert the comma-separated string of IDs into a list
-    therapy_type_ids = therapy_type_ids.split(',')
-    total_beds = frappe.db.get_all('Totals Beds Child',
-                                     filters={'parent': ['in', therapy_type_ids]},
-                                     fields=['totals_beds'])
-    print(":::::::::total_beds:::::::::::::::",total_beds)
+#     # Convert the comma-separated string of IDs into a list
+#     therapy_type_ids = therapy_type_ids.split(',')
+#     total_beds = frappe.db.get_all('Totals Beds Child',
+#                                      filters={'parent': ['in', therapy_type_ids]},
+#                                      fields=['totals_beds'])
+#     print(":::::::::total_beds:::::::::::::::",total_beds)
 
-    sessions_rooms = []
-    for bed in total_beds:
-        sessions_rooms.append(bed.get('totals_beds'))
-    return sessions_rooms
+#     sessions_rooms = []
+#     for bed in total_beds:
+#         sessions_rooms.append(bed.get('totals_beds'))
+#     return sessions_rooms
 
-@frappe.whitelist()
-def get_practitioner_from_therapy_types(therapy_type_ids):
-    print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
-    if not therapy_type_ids:
-        return []
+# @frappe.whitelist()
+# def get_practitioner_from_therapy_types(therapy_type_ids):
+#     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
+#     if not therapy_type_ids:
+#         return []
 
-    # Convert the comma-separated string of IDs into a list
-    therapy_type_ids = therapy_type_ids.split(',')
-    total_staff = frappe.db.get_all('Practitioner',
-                                     filters={'parent': ['in', therapy_type_ids]},
-                                     fields=['name1'])
-    print(":::::::::practitioner:::::::::::::::",total_staff)
+#     # Convert the comma-separated string of IDs into a list
+#     therapy_type_ids = therapy_type_ids.split(',')
+#     total_staff = frappe.db.get_all('Practitioner',
+#                                      filters={'parent': ['in', therapy_type_ids]},
+#                                      fields=['name1'])
+#     print(":::::::::practitioner:::::::::::::::",total_staff)
 
-    sessions_staff = []
-    for staff in total_staff:
-        sessions_staff.append(staff.get('name1'))
-        print("::::sessions_staff::::::", sessions_staff)
-    return sessions_staff
+#     sessions_staff = []
+#     for staff in total_staff:
+#         sessions_staff.append(staff.get('name1'))
+#         print("::::sessions_staff::::::", sessions_staff)
+#     return sessions_staff
 
 # @frappe.whitelist()
 # def calculate_end_date(doc, method):

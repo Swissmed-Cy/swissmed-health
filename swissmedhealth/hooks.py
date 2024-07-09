@@ -34,7 +34,7 @@ doctype_js = {
     "Lead": "public/js/lead.js",
     "CRM Activities": "public/js/crm_activities.js",
     "Therapy Session": "public/js/therapy_session.js",
-    "Therapy Session": "public/js/custom_therapy_session.js",
+    # "Therapy Session": "public/js/custom_therapy_session.js",
     "Quotation": "public/js/custom_sale_quotation.js"
 }
 # doctype_list_js = {"Therapy Session" : "public/js/custom_therapy_session.js"}
@@ -124,7 +124,8 @@ after_migrate = [
 
 override_doctype_class = {
     "Lead": "swissmedhealth.swissmedhealth.hooks.lead.Lead",
-    "Therapy Session": "swissmedhealth.swissmedhealth.hooks.CTherapySession.CTherapySession"
+    "Therapy Session": "swissmedhealth.swissmedhealth.hooks.CTherapySession.CTherapySession",
+    "Therapy Type": "swissmedhealth.swissmedhealth.customization.therapy_type.therapy_type.CustomTherapyType"
 }
 
 # Document Events
