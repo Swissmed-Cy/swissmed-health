@@ -31,6 +31,16 @@ def get_filterted_data(doctype, txt, searchfield, start, page_len, filters):
             AND {filters.get("field")} not in ( {','.join('"' + row + '"' for row in lst)} )
             """
 
+    if filters.get('doc') == 'tabTotals Beds Child' and filters.get('field', False) == 'totals_beds':
+        condition += f"""
+            AND totals_beds in (select name from `tabTotals Beds` where center_location = '{filters.get("custom_center_location")}')
+        """
+
+    if filters.get('doc') == 'tabTotal Child Chair' and filters.get('field', False) == 'name1':
+        condition += f"""
+            AND name1 in (select name1 from `tabTotal Chair` where center_location = '{filters.get("custom_center_location")}')
+        """
+
     return_data = frappe.db.sql(
         f"""
             SELECT
@@ -55,8 +65,8 @@ def get_filterted_rooms(doctype, txt, searchfield, start, page_len, filters):
             DISTINCT name1 as name
         FROM
             `tabTotal child rooms`
-        WHERE 
-            parent = '{filters.get("therapy_type")}'
+        WHERE
+            parent = '{filters.get("therapy_type")}' AND name1 in (select room_number from `tabRoom Number` where test = '{filters.get("custom_center_location")}')
         ORDER BY
             name1
     """)

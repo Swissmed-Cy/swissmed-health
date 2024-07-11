@@ -5,7 +5,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "room_number"
+  "room_number",
+  "test"
  ],
  "fields": [
   {
@@ -13,11 +14,18 @@
    "fieldtype": "Data",
    "label": "Room Number",
    "unique": 1
+  },
+  {
+   "fieldname": "test",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Center Location",
+   "options": "Limassol\nNicosia"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-18 12:42:57.004740",
+ "modified": "2024-07-11 07:19:16.048469",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Room Number",

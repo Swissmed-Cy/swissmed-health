@@ -23,6 +23,7 @@ function apply_filters_for_chairs(frm, cdt, cdn){
                 therapy_type: frm.doc.therapy_type,
                 duration: frm.doc.duration,
                 doc: "tabTotal Child Chair",
+                custom_center_location: frm.doc.custom_center_location,
                 field: "name1"
             }
         };
@@ -39,7 +40,8 @@ function apply_filters_for_beds(frm, cdt, cdn){
                 therapy_type: frm.doc.therapy_type,
                 duration: frm.doc.duration,
                 doc: "tabTotals Beds Child",
-                field: "totals_beds"
+                field: "totals_beds",
+                custom_center_location: frm.doc.custom_center_location
             }
         };
     });
@@ -66,7 +68,8 @@ function apply_filters_for_rooms(frm, cdt, cdn){
         return {
             query: "swissmedhealth.swissmedhealth.customization.therapy_session.therapy_session.get_filterted_rooms",
             filters: {
-                therapy_type: frm.doc.therapy_type
+                therapy_type: frm.doc.therapy_type,
+                custom_center_location: frm.doc.custom_center_location
             }
         };
     });
