@@ -8,7 +8,7 @@ git pull
 cd ~/frappe_docker
 git pull
 
-docker pull phalouvas/swissmed-worker:version-15
+# docker pull phalouvas/swissmed-worker:version-15
 docker compose --project-name erpnext-v15 down
 docker compose --project-name erpnext-v15 -f ~/swissmedhealth/deploy/erpnext-v15.yaml up -d
 docker exec -it erpnext-v15-backend-1 bench pip install invoice2data
