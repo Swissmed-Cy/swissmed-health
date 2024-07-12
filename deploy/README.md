@@ -69,8 +69,8 @@ Below should be run on local machine to avoid availability on production server.
     --tag=phalouvas/swissmed-worker:version-15 \
     --file=images/azure/Containerfile .
 
-  docker push phalouvas/swissmed-worker:15.29.2
-  docker tag phalouvas/swissmed-worker:15.29.2 phalouvas/swissmed-worker:version-15
+  # docker push phalouvas/swissmed-worker:15.24.0
+  # docker tag phalouvas/swissmed-worker:15.24.0 phalouvas/swissmed-worker:version-15
   docker push phalouvas/swissmed-worker:version-15
 
     ```
