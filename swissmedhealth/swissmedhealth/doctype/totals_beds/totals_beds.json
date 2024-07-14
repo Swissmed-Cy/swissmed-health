@@ -6,7 +6,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name1"
+  "name1",
+  "center_location"
  ],
  "fields": [
   {
@@ -14,11 +15,18 @@
    "fieldtype": "Data",
    "label": "Name",
    "unique": 1
+  },
+  {
+   "fieldname": "center_location",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Center Location",
+   "options": "Limassol\nNicosia"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-19 14:58:28.573765",
+ "modified": "2024-07-10 14:39:34.870774",
  "modified_by": "Administrator",
  "module": "Swissmedhealth",
  "name": "Totals Beds",
