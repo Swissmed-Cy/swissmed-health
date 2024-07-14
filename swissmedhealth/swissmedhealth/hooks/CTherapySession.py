@@ -149,7 +149,7 @@ class CTherapySession(OriginalTherapySession):
 
 	#     # Print statement for debugging
 	#     print("\n overlaps :::::::::::::::", overlaps)
-	    
+		
 	#     # If overlaps exist, check for overlapping chairs
 	#     if overlaps:
 	#         overlapping_details = []
@@ -159,112 +159,112 @@ class CTherapySession(OriginalTherapySession):
 	#                 if chair.name1 in ch:
 	#                     overlapping_details.append(session.name)
 	#                     break  # Stop checking chairs once a match is found
-	        
+			
 	#         # Prepare error message if overlapping sessions found
 	#         if overlapping_details:
 	#             overlapping_details = _("Therapy Session overlaps : please choose another practitioner or chair with {0}").format(str(overlapping_details))
 	#             frappe.throw(overlapping_details, title=_("Therapy Sessions Overlapping"))
-	    
+		
 	#     else:
 	#         print("No overlapping sessions found. Please select another chair.")
 
 	def validate_duplicate(self):
-	    # Print statement for debugging
-	    print("\n self ::::CUSTOM::::::::", self.custom_total_chairs)
+		# Print statement for debugging
+		print("\n self ::::CUSTOM::::::::", self.custom_total_chairs)
 
-	    # Initialize an empty list to store chair names
-	    ch = []
+		# Initialize an empty list to store chair names
+		ch = []
 
-	    # Loop through custom_total_chairs field to collect chair names
-	    for chair in self.custom_total_chairs:
-	        print("\n self ::::111111::::::::", chair.name1)
-	        ch.append(chair.name1)
+		# Loop through custom_total_chairs field to collect chair names
+		for chair in self.custom_total_chairs:
+			print("\n self ::::111111::::::::", chair.name1)
+			ch.append(chair.name1)
 
-	    # Calculate the end time of the current session
-	    end_time = datetime.datetime.combine(getdate(self.start_date), get_time(self.start_time)) + datetime.timedelta(minutes=flt(self.duration))
+		# Calculate the end time of the current session
+		end_time = datetime.datetime.combine(getdate(self.start_date), get_time(self.start_time)) + datetime.timedelta(minutes=flt(self.duration))
 
-	    # Query to find overlapping sessions
-	    overlaps = frappe.db.sql(
-	        """
-	        SELECT name
-	        FROM `tabTherapy Session`
-	        WHERE
-	            start_date=%s AND name!=%s AND docstatus!=2
-	            AND (practitioner=%s OR patient=%s) 
-	            AND (
-	                (start_time<%s AND ADDTIME(start_time, SEC_TO_TIME(duration*60))>%s) 
-	                OR 
-	                (start_time>%s AND start_time<%s) 
-	                OR 
-	                (start_time=%s)
-	            )
-	        """,
-	        (
-	            self.start_date,
-	            self.name,
-	            self.practitioner,
-	            self.patient,
-	            self.start_time,
-	            end_time.time(),
-	            self.start_time,
-	            end_time.time(),
-	            self.start_time,
-	        ),
-	    )
+		# Query to find overlapping sessions
+		overlaps = frappe.db.sql(
+			"""
+			SELECT name
+			FROM `tabTherapy Session`
+			WHERE
+				start_date=%s AND name!=%s AND docstatus!=2
+				AND (practitioner=%s OR patient=%s) 
+				AND (
+					(start_time<%s AND ADDTIME(start_time, SEC_TO_TIME(duration*60))>%s) 
+					OR 
+					(start_time>%s AND start_time<%s) 
+					OR 
+					(start_time=%s)
+				)
+			""",
+			(
+				self.start_date,
+				self.name,
+				self.practitioner,
+				self.patient,
+				self.start_time,
+				end_time.time(),
+				self.start_time,
+				end_time.time(),
+				self.start_time,
+			),
+		)
 
-	    # Print statement for debugging
-	    print("\n overlaps :::::::::::::::", overlaps)
-	    
-	    # If overlaps exist, check for overlapping chairs
-	    if overlaps:
-	        overlapping_details = []
-	        for session_name in overlaps:
-	            session = frappe.get_doc('Therapy Session', session_name[0])
-	            for chair in session.custom_total_chairs:
-	                if chair.name1 in ch:
-	                    overlapping_details.append(session.name)
-	                    break  # Stop checking chairs once a match is found
-	        
-	        # Prepare error message if overlapping sessions found
-	        if overlapping_details:
-	            overlapping_details_message = _("Therapy Session overlaps with the following sessions: {0}. Please choose another time or chair.").format(", ".join(overlapping_details))
-	            frappe.throw(overlapping_details_message, title=_("Therapy Sessions Overlapping"))
-	    
-	    # Additional check to ensure the same practitioner cannot book multiple sessions in the same time slot
-	    practitioner_overlaps = frappe.db.sql(
-	        """
-	        SELECT name
-	        FROM `tabTherapy Session`
-	        WHERE
-	            start_date=%s AND name!=%s AND docstatus!=2
-	            AND practitioner=%s
-	            AND (
-	                (start_time<%s AND ADDTIME(start_time, SEC_TO_TIME(duration*60))>%s) 
-	                OR 
-	                (start_time>%s AND start_time<%s) 
-	                OR 
-	                (start_time=%s)
-	            )
-	        """,
-	        (
-	            self.start_date,
-	            self.name,
-	            self.practitioner,
-	            self.start_time,
-	            end_time.time(),
-	            self.start_time,
-	            end_time.time(),
-	            self.start_time,
-	        ),
-	    )
+		# Print statement for debugging
+		print("\n overlaps :::::::::::::::", overlaps)
+		
+		# If overlaps exist, check for overlapping chairs
+		if overlaps:
+			overlapping_details = []
+			for session_name in overlaps:
+				session = frappe.get_doc('Therapy Session', session_name[0])
+				for chair in session.custom_total_chairs:
+					if chair.name1 in ch:
+						overlapping_details.append(session.name)
+						break  # Stop checking chairs once a match is found
+			
+			# Prepare error message if overlapping sessions found
+			if overlapping_details:
+				overlapping_details_message = _("Therapy Session overlaps with the following sessions: {0}. Please choose another time or chair.").format(", ".join(overlapping_details))
+				frappe.throw(overlapping_details_message, title=_("Therapy Sessions Overlapping"))
+		
+		# Additional check to ensure the same practitioner cannot book multiple sessions in the same time slot
+		practitioner_overlaps = frappe.db.sql(
+			"""
+			SELECT name
+			FROM `tabTherapy Session`
+			WHERE
+				start_date=%s AND name!=%s AND docstatus!=2
+				AND practitioner=%s
+				AND (
+					(start_time<%s AND ADDTIME(start_time, SEC_TO_TIME(duration*60))>%s) 
+					OR 
+					(start_time>%s AND start_time<%s) 
+					OR 
+					(start_time=%s)
+				)
+			""",
+			(
+				self.start_date,
+				self.name,
+				self.practitioner,
+				self.start_time,
+				end_time.time(),
+				self.start_time,
+				end_time.time(),
+				self.start_time,
+			),
+		)
 
-	    # If practitioner has overlapping sessions, throw an error
-	    if practitioner_overlaps:
-	        practitioner_overlaps_message = _("The practitioner has another session booked at the same time: {0}. Please choose another time or practitioner.").format(", ".join([p[0] for p in practitioner_overlaps]))
-	        frappe.throw(practitioner_overlaps_message, title=_("Practitioner Overlap"))
+		# If practitioner has overlapping sessions, throw an error
+		if practitioner_overlaps:
+			practitioner_overlaps_message = _("The practitioner has another session booked at the same time: {0}. Please choose another time or practitioner.").format(", ".join([p[0] for p in practitioner_overlaps]))
+			frappe.throw(practitioner_overlaps_message, title=_("Practitioner Overlap"))
 
-	    else:
-	        print("No overlapping sessions found. Please select another chair.")
+		else:
+			print("No overlapping sessions found. Please select another chair.")
 
 
 
@@ -287,14 +287,15 @@ class CTherapySession(OriginalTherapySession):
 			)
 
 	def update_sessions_count_in_therapy_plan(self, on_cancel=False):
-		therapy_plan = frappe.get_doc("Therapy Plan", self.therapy_plan)
-		for entry in therapy_plan.therapy_plan_details:
-			if entry.therapy_type == self.therapy_type:
-				if on_cancel:
-					entry.sessions_completed -= 1
-				else:
-					entry.sessions_completed += 1
-		therapy_plan.save()
+		if self.get('workflow_state') == "Completed":
+			therapy_plan = frappe.get_doc("Therapy Plan", self.therapy_plan)
+			for entry in therapy_plan.therapy_plan_details:
+				if entry.therapy_type == self.therapy_type:
+					if on_cancel:
+						entry.sessions_completed -= 1
+					else:
+						entry.sessions_completed += 1
+			therapy_plan.save()
 
 	def set_total_counts(self):
 		target_total = 0
