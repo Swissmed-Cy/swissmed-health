@@ -1,6 +1,9 @@
 import frappe
 from frappe import _
 
+def on_update_after_submit(self, method):
+    if self.get('workflow_state') == "Completed":
+        self.update_sessions_count_in_therapy_plan()
 
 @frappe.whitelist()
 def get_filterted_data(doctype, txt, searchfield, start, page_len, filters):
