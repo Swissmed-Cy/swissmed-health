@@ -287,7 +287,7 @@ class CTherapySession(OriginalTherapySession):
 			)
 
 	def update_sessions_count_in_therapy_plan(self, on_cancel=False):
-		if self.get('workflow_state') == "Completed":
+		if self.get('workflow_state') == "Completed" or on_cancel == True:
 			therapy_plan = frappe.get_doc("Therapy Plan", self.therapy_plan)
 			for entry in therapy_plan.therapy_plan_details:
 				if entry.therapy_type == self.therapy_type:
