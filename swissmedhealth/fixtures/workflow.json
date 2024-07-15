@@ -1,0 +1,149 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow",
+  "document_type": "Therapy Session",
+  "is_active": 1,
+  "modified": "2024-07-15 12:15:18.504826",
+  "name": "Therapy Custom Workflow",
+  "override_status": 0,
+  "send_email_alert": 0,
+  "states": [
+   {
+    "allow_edit": "All",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Draft",
+    "update_field": null,
+    "update_value": null,
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Scheduled",
+    "update_field": null,
+    "update_value": null,
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Arrived",
+    "update_field": null,
+    "update_value": null,
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Completed",
+    "update_field": null,
+    "update_value": null,
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "2",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Cancelled",
+    "update_field": null,
+    "update_value": null,
+    "workflow_builder_id": null
+   }
+  ],
+  "transitions": [
+   {
+    "action": "Schedule",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Scheduled",
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Draft",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Arrived",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Arrived",
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Scheduled",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Completed",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Completed",
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Arrived",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Scheduled",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Therapy Custom Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Completed",
+    "workflow_builder_id": null
+   }
+  ],
+  "workflow_data": null,
+  "workflow_name": "Therapy Custom Workflow",
+  "workflow_state_field": "workflow_state"
+ }
+]

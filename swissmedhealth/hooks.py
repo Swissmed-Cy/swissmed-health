@@ -254,51 +254,19 @@ fixtures = [{
                 ]
             ]
         ]
+    },
+    {
+    "doctype": "Workflow",
+        "filters": [
+            [
+                "name", "in", [
+                    "Therapy Custom Workflow"
+                ]
+            ]
+        ]
+    },
+    {
+    "doctype": "Workflow State",
     }
-    # {
-    # "doctype": "Workflow",
-    #     "filters": [
-    #         [
-    #             "name", "in", [
-    #                 "Workflow therapy session"
-    #             ]
-    #         ]
-    #     ]
-    # },
-    # {
-    # "doctype": "Workflow State",
-    # }
     ]
 
-
-
-
-
-# fixtures = [
-#     {"dt": "Workspace", "filters": [["module", "=", "Healthcare"]]}
-# ]
-
-# fixtures = [
-#     {
-#         "doctype": "Workspace",
-#         "filters": [
-#             [
-#                 "name", "in", [
-#                     "Healthcare"
-#                 ]
-#             ]
-#         ]
-#     }
-# ]
-
-
-
-
-
-# override_whitelisted_methods = {
-#   "frappe-bench.apps.healthcare.healthcare.doctype.therapy_plan.therapy_plan.js": "swissmedhealth.public.js.custom_therapy_plan.js"
-# }
-
-# doctype_js = {
-#     "Therapy Plan": "public/js/custom_therapy_plan.js",
-# }
