@@ -4,10 +4,10 @@
   "doctype": "Client Script",
   "dt": "Therapy Session",
   "enabled": 1,
-  "modified": "2024-06-25 12:29:10.505487",
+  "modified": "2024-08-08 09:30:14.001181",
   "module": "Swissmedhealth",
   "name": "Merge Invoice",
-  "script": "frappe.listview_settings['Therapy Session'] = {\n    onload: function(listview) {\n        listview.page.add_inner_button(__('Merge Invoice'), function() {\n            const selected_docs = listview.get_checked_items();\n\n            if (selected_docs.length === 0) {\n                frappe.msgprint(__('Please select at least one Therapy Session'));\n                return;\n            }\n\n            const therapy_sessions = selected_docs.map(doc => doc.name);\n            console.log(\"::::::::::::therapy_sessions:::\",therapy_sessions)\n\n            frappe.call({\n                method: \"swissmedhealth.swissmedhealth.hooks.custom_therapy_session.merge_therapy_sessions_to_invoice\",\n                args: {\n                    'therapy_sessions': therapy_sessions\n                },\n                callback: function(r) {\n                    if(r.message) {\n                        console.log(\"::::::::::::::::::::\",r.message)\n                        frappe.msgprint(__('Invoice Created: ' + r.message));\n                        listview.refresh();\n                    }\n                }\n            });\n        });\n    }\n};\n",
+  "script": "frappe.listview_settings['Therapy Session'] = {\n    onload: function(listview) {\n        listview.page.add_inner_button(__('Merge Invoice'), function() {\n            const selected_docs = listview.get_checked_items();\n\n            if (selected_docs.length === 0) {\n                frappe.msgprint(__('Please select at least one Therapy Session'));\n                return;\n            }\n\n            const therapy_sessions = selected_docs.map(doc => doc.name);\n            console.log(\"::::::::::::therapy_sessions:::\",therapy_sessions)\n\n            frappe.call({\n                method: \"swissmedhealth.swissmedhealth.hooks.custom_therapy_session.merge_therapy_sessions_to_invoice\",\n                args: {\n                    'therapy_sessions': therapy_sessions\n                },\n                callback: function(r) {\n                    if(r.message) {\n                        console.log(\"::::::::::::::::::::\",r.message)\n                        frappe.msgprint(__('Invoice Created: <a href = \"/app/sales-invoice/'+r.message+'\">'+r.message+'</a>'));\n                        listview.refresh();\n                    }\n                }\n            });\n        });\n    }\n};\n",
   "view": "List"
  },
  {
@@ -26,10 +26,10 @@
   "doctype": "Client Script",
   "dt": "Therapy Session",
   "enabled": 1,
-  "modified": "2024-07-01 14:24:05.379149",
+  "modified": "2024-08-08 16:59:03.478899",
   "module": "Swissmedhealth",
   "name": "Calendar View",
-  "script": "frappe.views.calendar[\"Therapy Session\"] = {\n\tfield_map: {\n\t\tstatus: \"docstatus\",\n        id: \"name\",\n        title: \"patient\",\n        start: \"start\",\n        end: \"end\",  // Make sure you have an end_date if needed\n        // \"allDay\": \"all_day\", // Optional, if you are using all-day events\n        therapy_plan: \"therapy_plan\",\n        // \"eventColor\": \"color\",\n        color: \"color\"\n\t},\n\torder_by: \"start_date\",\n// \tgantt: true,\n\tget_events_method: \"swissmedhealth.public.therapy_session.get_events\"\n};\n",
+  "script": "frappe.views.calendar[\"Therapy Session\"] = {\n\tfield_map: {\n\t\tstatus: \"docstatus\",\n        id: \"name\",\n        title: \"patient\",\n        start: \"hi\",\n        end: \"end\",  // Make sure you have an end_date if needed\n        // \"allDay\": \"all_day\", // Optional, if you are using all-day events\n        therapy_plan: \"therapy_plan\",\n        // \"eventColor\": \"color\",\n        color: \"color\"\n\t},\n\torder_by: \"start_date\",\n// \tgantt: true,\n\tget_events_method: \"swissmedhealth.public.therapy_session.get_events\"\n};\n",
   "view": "List"
  },
  {

@@ -26,6 +26,7 @@ from datetime import datetime, timedelta
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
+    
     """Returns events for Gantt / Calendar view rendering.
 
     :param start: Start date-time.

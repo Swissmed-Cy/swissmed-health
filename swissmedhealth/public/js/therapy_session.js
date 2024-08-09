@@ -1,5 +1,19 @@
 // File: frappe-bench/apps/your_app/your_app/public/js/therapy_session.js
 frappe.ui.form.on('Therapy Session', {
+    setup:function(frm){
+        frm.set_query('custom_health_service_unit', function() {
+			return {
+                query:"swissmedhealth.utils.get_available_units",
+				filters: {
+					'start_date':frm.doc.start_date,
+                    'start_time':frm.doc.start_time,
+                    'duration':frm.doc.duration,
+                    'therapy_type':frm.doc.therapy_type,
+                    'name':frm.doc.name
+				}
+			};
+		});
+    },
     refresh: function(frm, cdt, cdn){
         apply_filters_for_chairs(frm, cdt, cdn)
         apply_filters_for_beds(frm, cdt, cdn)

@@ -1,10 +1,22 @@
 import frappe
+from erpnext.crm.doctype.lead.lead import make_customer
+from swissmedhealth.swissmedhealth.hooks.customer import make_patient
 from frappe import _
 
 @frappe.whitelist()
 def create_therapy_plan(quotation_name):
     # Fetch the Sales Quotation document
+    
     quotation = frappe.get_doc('Quotation', quotation_name)
+    customer_id = frappe.db.get_value("Customer",{"lead_name":quotation.party_name})
+    if not customer_id:
+        customer = make_customer(quotation.party_name)
+        customer.save()
+        customer_id = customer.name
+    if not frappe.db.get_value("Patient",{"custom_lead_name":quotation.party_name, "customer":customer_id}):
+        patient_doc = make_patient(customer_id)
+        patient_doc.save()
+
     
     # Create a new Therapy Plan document
     therapy_plan = frappe.new_doc('Therapy Plan')
