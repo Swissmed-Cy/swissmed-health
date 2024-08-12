@@ -70,11 +70,11 @@ def get_events(start, end, filters=None):
         session['total_child_rooms'] = frappe.db.sql(
             """
             select
-                name1 
+                custom_health_service_unit 
             from
-                `tabTotal child rooms`
+                `tabTherapy Session`
             where
-                parent = %s
+                name = %s
             """,
             session['name'],
             as_dict=True
@@ -97,7 +97,7 @@ def get_events(start, end, filters=None):
    
     for item in data:
         print (" item custom room no :::::",item)
-        room_numbers = [i.get('name1') for i in item.get('total_child_rooms', []) if i and i.get('name1')]
+        room_numbers = [i.get('custom_health_service_unit') for i in item.get('total_child_rooms', []) if i and i.get('custom_health_service_unit')]
         if room_numbers:
             room_numbers = ','.join(room_numbers)
         else:
@@ -121,10 +121,10 @@ def get_events(start, end, filters=None):
         })  # Use timedelta correctly
         item.update({
             'patient': item.patient + \
-                '\n Start Time: ' + str(item.start_time) + \
-                '\n Practitioner:' + str(practitioner) + \
-                '\n Type:' + str(item.therapy_type) + \
-                '\n Room Number:' + str(room_numbers)
+                '\n' + str(item.start_time) + \
+                '\n ' + str(practitioner) + \
+                '\n ' + str(item.therapy_type) + \
+                '\n '+ str(room_numbers) 
         })
     print ("\n data ::::After:::::::::", data)
     return data
