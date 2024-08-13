@@ -29,7 +29,7 @@
   "modified": "2024-08-08 16:59:03.478899",
   "module": "Swissmedhealth",
   "name": "Calendar View",
-  "script": "frappe.views.calendar[\"Therapy Session\"] = {\n\tfield_map: {\n\t\tstatus: \"docstatus\",\n        id: \"name\",\n        title: \"patient\",\n        start: \"hi\",\n        end: \"end\",  // Make sure you have an end_date if needed\n        // \"allDay\": \"all_day\", // Optional, if you are using all-day events\n        therapy_plan: \"therapy_plan\",\n        // \"eventColor\": \"color\",\n        color: \"color\"\n\t},\n\torder_by: \"start_date\",\n// \tgantt: true,\n\tget_events_method: \"swissmedhealth.public.therapy_session.get_events\"\n};\n",
+  "script": "frappe.views.calendar[\"Therapy Session\"] = {\n\tfield_map: {\n\t\tstatus: \"docstatus\",\n        id: \"name\",\n        title: \"patient\",\n        start: \"start\",\n        end: \"end\",  // Make sure you have an end_date if needed\n        // \"allDay\": \"all_day\", // Optional, if you are using all-day events\n        therapy_plan: \"therapy_plan\",\n        // \"eventColor\": \"color\",\n        color: \"color\"\n\t},\n\torder_by: \"start_date\",\n// \tgantt: true,\n\tget_events_method: \"swissmedhealth.public.therapy_session.get_events\"\n};\n",
   "view": "List"
  },
  {
