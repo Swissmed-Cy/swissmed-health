@@ -2,7 +2,7 @@ cd ~
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github
 
-cd ~/swissmedhealth
+cd ~/swissmed-health
 git pull
 
 cd ~/frappe_docker
