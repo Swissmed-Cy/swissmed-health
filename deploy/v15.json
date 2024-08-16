@@ -16,6 +16,7 @@
     "branch": "version-15"
   },
   {
+    "name": "swissmedhealth",
     "url": "https://github.com/Swissmed-Cy/swissmed-health.git",
     "branch": "master"
   },
