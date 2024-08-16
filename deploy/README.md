@@ -80,7 +80,7 @@ Below should be run on local machine to avoid availability on production server.
 Run below on production server.
 
 ```shell
-~/swissmedhealth/deploy/deploy.sh
+~/swissmed-health/deploy/deploy.sh
 ```
 
 To delete old image in order to free up space use command `docker rmi -f phalouvas/swissmed-worker:x.x.x` where x.x.x the old version
