@@ -142,6 +142,7 @@ doc_events = {
     },
     "Therapy Session": {
         "on_update_after_submit": "swissmedhealth.swissmedhealth.customization.therapy_session.therapy_session.on_update_after_submit",
+        "validate":"swissmedhealth.swissmedhealth.customization.therapy_session.therapy_session.validate_session"
     },
     # "Therapy Session": {
     #     "on_submit": "swissmedhealth.public.therapy_session.validate_double_booking",
