@@ -82,28 +82,39 @@ def validate_bed_chairs(self):
     if self.custom_total_chairs and self.custom_total_beds:
         frappe.throw(_("Can not assign Bed and Chair at same time."))
 
+
 def validate_session(self, method):
     from datetime import datetime, timedelta
-    therapy_sessions = frappe.db.sql('''select name,start_time,duration from `tabTherapy Session` where patient='{0}' and start_date="{1}"
-                   and workflow_state in ("Scheduled", "Arrived") and name != '{2}' '''.format(self.patient,self.start_date, self.name),as_dict = 1)
+
+    therapy_sessions = frappe.db.sql(
+        """select name,start_time,duration from `tabTherapy Session` where patient='{0}' and start_date="{1}"
+                   and workflow_state in ("Scheduled", "Arrived") and name != '{2}' """.format(
+            self.patient, self.start_date, self.name
+        ),
+        as_dict=1,
+    )
     for dict in therapy_sessions:
         start_time = str(dict["start_time"])
         end_time = str(dict["start_time"] + timedelta(minutes=dict["duration"]))
-        date_time_obj = datetime.strptime(str(self.start_time), '%H:%M:%S')
+        date_time_obj = datetime.strptime(str(self.start_time), "%H:%M:%S")
         duration = timedelta(minutes=self.duration)
-        self_end_time = (date_time_obj+duration).time()
-        if (str(self.start_time) >=  str(start_time) and str(self.start_time) < str(end_time)) or (str(self_end_time) > str(start_time) and str(self_end_time) <= str(end_time)):
-            frappe.throw("Therapy Session for this Patient is overlapping")
-    therapy_sessions = frappe.db.sql('''select name,start_time,duration from `tabTherapy Session` where practitioner='{0}' and start_date="{1}"
-                   and workflow_state in ("Scheduled", "Arrived") and name != '{2}' '''.format(self.practitioner,self.start_date, self.name),as_dict = 1)
+        self_end_time = (date_time_obj + duration).time()
+        if (
+            str(self.start_time) >= str(start_time)
+            and str(self.start_time) < str(end_time)
+        ) or (
+            str(self_end_time) > str(start_time) and str(self_end_time) <= str(end_time)
+        ):
+            frappe.throw("Therapy Session for this Patient is overlapping with {0}".format(dict["name"]))
+
+    therapy_sessions = frappe.db.sql(
+        """select name,start_time,duration from `tabTherapy Session` where practitioner='{0}' and start_date="{1}"
+                   and workflow_state in ("Scheduled", "Arrived") and name != '{2}' """.format(
+            self.practitioner, self.start_date, self.name
+        ),
+        as_dict=1,
+    )
     for dict in therapy_sessions:
         start_time = str(dict["start_time"])
-        end_time = str(dict["start_time"] + timedelta(minutes=dict["duration"]))
-        date_time_obj = datetime.strptime(str(self.start_time), '%H:%M:%S')
-        duration = timedelta(minutes=self.duration)
-        self_end_time = (date_time_obj+duration).time()
-        if (str(self.start_time) >=  str(start_time) and str(self.start_time) < str(end_time)) or (str(self_end_time) > str(start_time) and str(self_end_time) <= str(end_time)):
-            frappe.throw("Therapy Session for this Practitioner is overlapping")
-
-
-
+        if (str(self.start_time) == str(start_time)):
+            frappe.throw(f"Therapy Session for this Practitioner is scheduled for {start_time}")
