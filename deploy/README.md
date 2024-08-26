@@ -72,6 +72,7 @@ Below should be run on local machine to avoid availability on production server.
   # docker push phalouvas/swissmed-worker:15.24.0
   # docker tag phalouvas/swissmed-worker:15.24.0 phalouvas/swissmed-worker:version-15
   # docker push phalouvas/swissmed-worker:version-15
+  # docker builder prune
 
     ```
 
