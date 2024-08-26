@@ -57,7 +57,7 @@ Below should be run on local machine to avoid availability on production server.
 - Export apps to variable and build image
   ```shell
 
-  export APPS_JSON_BASE64=$(base64 -w 0 ~/swissmedhealth/deploy/v15.json)
+  export APPS_JSON_BASE64=$(base64 -w 0 ~/swissmed-health/deploy/v15.json)
 
   cd ~/frappe_docker
 
