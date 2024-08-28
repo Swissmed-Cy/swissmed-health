@@ -96,9 +96,9 @@ doctype_calendar_js = {"Therapy Session" : "public/js/therapy_session_calendar.j
 # after_app_uninstall = "swissmedhealth.utils.after_app_uninstall"
 
 # After migrate
-after_migrate = [
-    "swissmedhealth.utils.after_migrate.set_default_print_format",
-]
+#after_migrate = [
+#    "swissmedhealth.utils.after_migrate.set_default_print_format",
+#]
 
 # Desk Notifications
 # ------------------

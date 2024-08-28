@@ -57,7 +57,7 @@ Below should be run on local machine to avoid availability on production server.
 - Export apps to variable and build image
   ```shell
 
-  export APPS_JSON_BASE64=$(base64 -w 0 ~/swissmedhealth/deploy/v15.json)
+  export APPS_JSON_BASE64=$(base64 -w 0 ~/swissmed-health/deploy/v15.json)
 
   cd ~/frappe_docker
 
@@ -72,6 +72,7 @@ Below should be run on local machine to avoid availability on production server.
   # docker push phalouvas/swissmed-worker:15.24.0
   # docker tag phalouvas/swissmed-worker:15.24.0 phalouvas/swissmed-worker:version-15
   # docker push phalouvas/swissmed-worker:version-15
+  # docker builder prune
 
     ```
 
@@ -80,7 +81,7 @@ Below should be run on local machine to avoid availability on production server.
 Run below on production server.
 
 ```shell
-~/swissmedhealth/deploy/deploy.sh
+~/swissmed-health/deploy/deploy.sh
 ```
 
 To delete old image in order to free up space use command `docker rmi -f phalouvas/swissmed-worker:x.x.x` where x.x.x the old version
