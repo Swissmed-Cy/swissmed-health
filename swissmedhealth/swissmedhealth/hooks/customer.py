@@ -9,6 +9,7 @@ def _make_patient(source_name, target_doc=None, ignore_permissions=False):
 	def set_missing_values(source, target):
 		# Get customer document from source_name
 		customer = frappe.get_doc("Customer", source_name)
+		
 		if customer.salutation:
 			target.first_name = (customer.salutation)+" "+target.first_name
 		target.customer_group = customer.customer_group

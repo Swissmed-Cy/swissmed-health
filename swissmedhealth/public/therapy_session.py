@@ -170,7 +170,6 @@ def get_events(start, end, filters=None):
 #     print(":::::::::::therapy_type_ids:::::::::::::",therapy_type_ids)
 #     if not therapy_type_ids:
 #         return []
-
 #     # Convert the comma-separated string of IDs into a list
 #     therapy_type_ids = therapy_type_ids.split(',')
 #     total_beds = frappe.db.get_all('Totals Beds Child',

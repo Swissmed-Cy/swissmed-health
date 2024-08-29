@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from frappe.utils.data import to_timedelta
 
 def on_update_after_submit(self, method):
     if self.get('workflow_state') == "Completed":
@@ -116,5 +117,7 @@ def validate_session(self, method):
     )
     for dict in therapy_sessions:
         start_time = str(dict["start_time"])
-        if (str(self.start_time) == str(start_time)):
+        end_time = str(dict["start_time"]+timedelta(minutes=10))
+        delay_start_time = to_timedelta(self.start_time)+timedelta(minutes=10)
+        if (str(self.start_time) >= str(start_time)) and (str(self.start_time) <= str(end_time)) or (str(delay_start_time) >= str(start_time) and str(delay_start_time) <= str(end_time)):
             frappe.throw(f"Therapy Session for this Practitioner is scheduled for {start_time}")
