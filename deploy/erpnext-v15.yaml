@@ -153,7 +153,7 @@ services:
         target: /home/frappe/frappe-bench/sites
         volume: {}
   redis-cache:
-    image: redis:6.2-alpine
+    image: redis:7.4-alpine
     networks:
       bench-network: null
       mariadb-network: null
@@ -164,7 +164,7 @@ services:
         target: /data
         volume: {}
   redis-queue:
-    image: redis:6.2-alpine
+    image: redis:7.4-alpine
     networks:
       bench-network: null
       mariadb-network: null
